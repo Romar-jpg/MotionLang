@@ -55,4 +55,5 @@ If hindi mahanap yung exact path ng C Compiler, do the following:
 
 1. Press Ctrl + Shift + P in VS Code.
 2. Type and select: C/C++: Select IntelliSense Configuration...
-3. Choose the GCC compiler that VS Code automatically detects on your system. VS Code will update this line to the correct path automatically. Or, click yung may mga gcc.exe para ma-update yung path. 
+3. Choose the GCC compiler that VS Code automatically detects on your system. VS Code will update this line to the correct path automatically. Or, click yung may mga gcc.exe para ma-update yung path.
+4. Or first, verify if gcc exists sa device by checking `gcc --version`. Then, type `where.exe gcc` then i-copy yung file path sa `.vscode\c_cpp_properties.json`.
