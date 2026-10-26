@@ -1,25 +1,34 @@
-# MotionLang Lexer
+# 🏃‍♂️ MotionLang Lexer
 
-MotionLang is a beginner-friendly, procedural programming language based on real-world motion and spatial actions. Replacing abstract jargon with tangible metaphors, it treats data as physical objects being gathered, transformed, stored, and routed through loops mimicking circular momentum.
+> **MotionLang** is a beginner-friendly, procedural programming language based on real-world motion and spatial actions. Replacing abstract jargon with tangible metaphors, it treats data as physical objects being gathered, transformed, stored, and routed through loops mimicking circular momentum.
 
-This repository contains the Lexical Analyzer (Scanner) for MotionLang, built in C from scratch for our Principles of Programming Languages (PPL) project (Group 3).
-
-## 🚀 How to Clone and Run
-1. Open your VS Code terminal and clone the repository:
-   ```bash
-   git clone https://github.com/YourUsername/MotionLang.git
-   ```
-2. Navigate into the folder and compile the project using GCC:
-   ```bash
-   gcc main.c motionlang_tokens.c -o motionlang_lexer
-   ```
-3. Run the executable:
-   * **Windows:** `.\motionlang_lexer.exe`
-   * **Linux/Mac:** `./motionlang_lexer`
+This repository contains the **Lexical Analyzer (Scanner)** for MotionLang, built in C from scratch for our Principles of Programming Languages (PPL) project (Group 3).
 
 ---
 
-## 🛠️ Module Integration Guide (For Team Members)
+## 🚀 How to Clone and Run
+
+**1. Clone the repository:**
+Open your VS Code terminal and run:
+```bash
+git clone https://github.com/Romar-jpg/MotionLang.git
+```
+
+**2. Compile the project:**
+Navigate into the folder and use GCC to compile:
+```bash
+gcc main.c motionlang_tokens.c -o motionlang_lexer
+```
+
+**3. Run the executable:**
+* **Windows:** `.\motionlang_lexer.exe`
+* **Linux/Mac:** `./motionlang_lexer`
+
+---
+
+## 🛠️ Module Integration Guide
+
+This guide is for team members to hook their specific modules into the shared token architecture.
 
 ### 📌 General Setup
 Any C file that interacts with tokens must include Module 3's header file at the top:
@@ -28,22 +37,31 @@ Any C file that interacts with tokens must include Module 3's header file at the
 ```
 
 ### 🔹 Module 1: Engine & Stream Handlers
-**Goal:** Read the source file character by character using `fgetc()`.
+* **Goal:** Read the source file character by character using `fgetc()`.
 * **Requirement for Mod 3:** You must track the `current_line` and `current_column` integers. Every time you read a newline (`\n`), increment the line counter and reset the column counter. 
-* You will pass these coordinates to Module 2 so they can be bundled into the token for accurate error reporting.
+* **Output:** Pass these spatial coordinates to Module 2 so they can be bundled into the token for accurate error reporting.
 
 ### 🔹 Module 2: State Transition & Token Matching
-**Goal:** Build the manual `switch-case` state machine.
-* Accumulate valid characters into a string `buffer`.
-* When your state machine hits an accepting state (e.g., reaching a space after spelling "spin"), call the Module 3 packaging function:
-```c
-// Example call:
-Token newToken = createToken(TOKEN_IDENTIFIER, buffer, current_line, current_column);
-```
-* **Note:** You do not need to manually check if identifiers are keywords (like `spin`, `grab`, `num`). Just pass them as `TOKEN_IDENTIFIER`, and Module 3's internal registry will automatically identify them as reserved words!
+* **Goal:** Build the manual `switch-case` state machine.
+* **Process:** Accumulate valid characters into a string `buffer`. When your state machine hits an accepting state (e.g., reaching a space after spelling `"spin"`), call the Module 3 packaging function:
+  ```c
+  // Example call:
+  Token newToken = createToken(TOKEN_IDENTIFIER, buffer, current_line, current_column);
+  ```
+* **💡 Pro-Tip:** You do not need to manually check if identifiers are keywords (like `spin`, `grab`, `num`). Just pass them as `TOKEN_IDENTIFIER`, and Module 3's internal DFA registry will automatically upgrade them to reserved words!
 
 ### 🔹 Module 3: Token Structs & Keyword Registry (Completed)
-Handles the `Token` objects, enums, and keyword lookup logic to keep the state machine clean.
+* **Goal:** Handles the `Token` objects, enums, and keyword lookup logic to keep the state machine clean. 
+* **Architecture:** Built strictly as a Deterministic Finite Automaton (DFA) without `<string.h>` or `strcmp` shortcuts to adhere to project constraints.
 
-### 🔹 Module 4: Test Suite & Build
-Will handle `.easy` file testing and setting up the `Makefile` to replace the manual `gcc` commands.
+### 🔹 Module 4: Test Suite & Build (Pending)
+* **Goal:** Will handle `.easy` file testing and setting up the `Makefile` to replace the manual `gcc` commands.
+
+---
+
+## ⚠️ Troubleshooting
+
+| Error Type | Description & Solution |
+| :--- | :--- |
+| **Exit Code -1** <br>*(Undefined Reference)* | If you use the VS Code "Run" button and get this error, your editor is only compiling your active tab. <br><br>**Solution:** Use the terminal `gcc` command above, or update your `.vscode/tasks.json` to compile `"${workspaceFolder}\\*.c"`. |
+| **Error 4551** <br>*(App Control Block)* | Windows Defender or your antivirus will likely block the freshly compiled `.exe`. <br><br>**Solution:** Add your project folder to your Antivirus/Windows Security **Exclusions** list. |
