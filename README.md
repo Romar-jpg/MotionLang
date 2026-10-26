@@ -47,3 +47,12 @@ Handles the `Token` objects, enums, and keyword lookup logic to keep the state m
 
 ### 🔹 Module 4: Test Suite & Build
 Will handle `.easy` file testing and setting up the `Makefile` to replace the manual `gcc` commands.
+
+### TROUBLESHOOTING 
+<img width="708" height="122" alt="image" src="https://github.com/user-attachments/assets/24343c15-a694-41ad-a684-447da17155ff" />
+
+If hindi mahanap yung exact path ng C Compiler, do the following:
+
+1. Press Ctrl + Shift + P in VS Code.
+2. Type and select: C/C++: Select IntelliSense Configuration...
+3. Choose the GCC compiler that VS Code automatically detects on your system. VS Code will update this line to the correct path automatically. Or, click yung may mga gcc.exe para ma-update yung path. 
