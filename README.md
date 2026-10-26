@@ -66,7 +66,7 @@ Any C file that interacts with tokens must include Module 3's header file at the
 | **Exit Code -1** <br>*(Undefined Reference)* | If you use the VS Code "Run" button and get this error, your editor is only compiling your active tab. <br><br>**Solution:** Use the terminal `gcc` command above, or update your `.vscode/tasks.json` to compile `"${workspaceFolder}\\*.c"`. |
 | **Error 4551** <br>*(App Control Block)* | Windows Defender or your antivirus will likely block the freshly compiled `.exe`. <br><br>**Solution:** Add your project folder to your Antivirus/Windows Security **Exclusions** list. |
 ### 🔹 Module 4: Test Suite & Build
-Will handle `.easy` file testing and setting up the `Makefile` to replace the manual `gcc` commands.
+Will handle `.mtnl` file testing and setting up the `Makefile` to replace the manual `gcc` commands.
 
 
 <img width="708" height="122" alt="image" src="https://github.com/user-attachments/assets/24343c15-a694-41ad-a684-447da17155ff" />
