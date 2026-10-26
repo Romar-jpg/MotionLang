@@ -3,19 +3,19 @@
 
 // Enumeration of all MotionLang token types
 typedef enum {
-    // Data Types[cite: 5]
+      // Data Types
     TOKEN_NUM, TOKEN_DEC, TOKEN_CHAR, TOKEN_FLAG, TOKEN_TEXT, TOKEN_STASH,
     
-    // Storage Constraints[cite: 5]
+    // Storage Constraints
     TOKEN_HOLD, TOKEN_FIXED,
     
-    // Conditionals & Iteration[cite: 5, 6]
+    // Conditionals & Iteration
     TOKEN_IF, TOKEN_ELSE, TOKEN_SPIN, TOKEN_HALT, TOKEN_SKIP,
     
     // Input/Output & Functions
     TOKEN_GRAB, TOKEN_EMIT, TOKEN_PROMPT, TOKEN_ROUTINE, TOKEN_RETURN,
     
-    // Word Operators[cite: 6]
+    // Word Operators
     TOKEN_DIV_OP, TOKEN_AND, TOKEN_OR, TOKEN_NOT,
     
     // Identifiers & Literals
@@ -23,7 +23,7 @@ typedef enum {
     TOKEN_INTEGER_LITERAL, TOKEN_DECIMAL_LITERAL,
     TOKEN_STRING_LITERAL, TOKEN_CHAR_LITERAL,
     
-    // Arithmetic & Relational Symbols[cite: 4, 5]
+    // Arithmetic & Relational Symbols
     TOKEN_PLUS, TOKEN_MINUS, TOKEN_STAR, TOKEN_SLASH, TOKEN_MODULO, TOKEN_CARET,
     TOKEN_ASSIGN, TOKEN_EQUAL, TOKEN_NOT_EQUAL, TOKEN_LESS, TOKEN_GREATER,
     TOKEN_LESS_EQUAL, TOKEN_GREATER_EQUAL,
