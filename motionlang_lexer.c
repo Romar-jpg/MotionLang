@@ -163,6 +163,166 @@ void skip_comment(void) {
     }
 }
 
-// MODULE 2 - PART B: Main Switch loop, Blanks, Delimiters, Fallbacks
 
-// Insert code
+// =============================================================================================
+//    MODULE 2  - PART B: Main Switch loop, Operations Symbol, Blanks, Delimiters, Fallbacks
+// =============================================================================================
+
+Token getNextToken(void) {
+    int c = getNextChar();
+
+    if (c == EOF) {
+        return createToken(TOKEN_EOF, "EOF", current_line, current_column);
+    }
+
+    // Blanks 
+    while (c == ' ' || c == '\t' || c == '\r' || c == '\n') {
+        if (c == '\n') {
+            current_line++;
+            current_column = 1;
+        } else {
+            current_column++;
+        }
+        c = getNextChar();
+        
+        if (c == EOF) {
+            return createToken(TOKEN_EOF, "EOF", current_line, current_column); 
+        }
+    } 
+
+int start_col = current_column;
+
+    // Main Switch-Case
+    switch (c) {
+      
+        // Identifiers & Keywords Dispatch
+        case 'a' ... 'z':
+        case 'A' ... 'Z':
+        case '_':
+            return handle_identifier(c);
+
+        // Number Literals Dispatch
+        case '0' ... '9':
+            return handle_number(c);
+
+        // String Literals Dispatch
+        case '"':
+        case '\'':
+            return handle_string(c);
+
+        // Comment Handling Dispatch
+        case '#':
+            skip_comment();
+            return getNextToken();
+
+        // Delimiters & Brackets[cite: 5, 6]
+        case '(': 
+            current_column++; 
+            return createToken(TOKEN_LPAREN, "(", current_line, start_col);
+
+        case ')': 
+            current_column++; 
+            return createToken(TOKEN_RPAREN, ")", current_line, start_col);
+
+        case '[': 
+            current_column++; 
+            return createToken(TOKEN_LBRACKET, "[", current_line, start_col);
+
+        case ']': 
+            current_column++; 
+            return createToken(TOKEN_RBRACKET, "]", current_line, start_col);
+
+        case '{': 
+            current_column++; 
+            return createToken(TOKEN_LBRACE, "{", current_line, start_col);
+
+        case '}': 
+            current_column++; 
+            return createToken(TOKEN_RBRACE, "}", current_line, start_col);
+
+        case ',': 
+            current_column++; 
+            return createToken(TOKEN_COMMA, ",", current_line, start_col);
+
+        case ';': 
+            current_column++; 
+            return createToken(TOKEN_SEMICOLON, ";", current_line, start_col);
+
+        // Operations Symbols [cite: 7]
+        // Arithmetic Operators
+        case '+': 
+            current_column++; 
+            return createToken(TOKEN_PLUS, "+", current_line, start_col);
+
+        case '-': 
+            current_column++; 
+            return createToken(TOKEN_MINUS, "-", current_line, start_col);
+
+        case '*': 
+            current_column++; 
+            return createToken(TOKEN_STAR, "*", current_line, start_col);
+
+        case '/': 
+            current_column++; 
+            return createToken(TOKEN_SLASH, "/", current_line, start_col);
+
+        case '%': 
+            current_column++; 
+            return createToken(TOKEN_MODULO, "%", current_line, start_col);
+            
+        case '^': 
+            current_column++; 
+            return createToken(TOKEN_CARET, "^", current_line, start_col);
+
+        // Relational Operators
+        case '=': {
+            int next = getNextChar();
+            if (next == '=') {
+                current_column += 2;
+                return createToken(TOKEN_EQUAL, "==", current_line, start_col);
+            }
+            ungetChar(next);
+            current_column++;
+            return createToken(TOKEN_ASSIGN, "=", current_line, start_col);
+        }
+        case '<': {
+            int next = getNextChar();
+            if (next == '=') {
+                current_column += 2;
+                return createToken(TOKEN_LESS_EQUAL, "<=", current_line, start_col);
+            }
+            ungetChar(next);
+            current_column++;
+            return createToken(TOKEN_LESS, "<", current_line, start_col);
+        }
+        case '>': {
+            int next = getNextChar();
+            if (next == '=') {
+                current_column += 2;
+                return createToken(TOKEN_GREATER_EQUAL, ">=", current_line, start_col);
+            }
+            ungetChar(next);
+            current_column++;
+            return createToken(TOKEN_GREATER, ">", current_line, start_col);
+        }
+        case '!': {
+            int next = getNextChar();
+            if (next == '=') {
+                current_column += 2;
+                return createToken(TOKEN_NOT_EQUAL, "!=", current_line, start_col);
+            }
+            ungetChar(next);
+            current_column++;
+            return createToken(TOKEN_NOT, "!", current_line, start_col);
+        }
+
+        // Lexical Errors/Fallback
+        // If a character is not recognized, an error will occur and it would return TOKEN_UNKNOWN
+        default: {
+            char lexeme[2] = { (char)c, '\0' };
+            current_column++;
+            fprintf(stderr, "Lexical Error: Unexpected character '%c' at line %d, column %d\n", c, current_line, start_col);
+            return createToken(TOKEN_UNKNOWN, lexeme, current_line, start_col);
+        }
+    }
+}
