@@ -24,6 +24,9 @@ gcc main.c motionlang_tokens.c motionlang_lexer.c motionlang_stream.c -o motionl
 * **Windows:** `.\motionlang_lexer.exe`
 * **Linux/Mac:** `./motionlang_lexer`
 
+**NOTE**: Everytime na may na-change sa code, you must COMPILE the project first before running the executable. Need siya para mag-take effect yung changes.
+If walang changes, then kahit yung executable lang ang i-run.
+
 ---
 
 ## 🛠️ Module Integration Guide
