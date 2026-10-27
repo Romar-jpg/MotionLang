@@ -41,7 +41,7 @@ Any C file that interacts with tokens must include Module 3's header file at the
 * **Requirement for Mod 3:** You must track the `current_line` and `current_column` integers. Every time you read a newline (`\n`), increment the line counter and reset the column counter. 
 * **Output:** Pass these spatial coordinates to Module 2 so they can be bundled into the token for accurate error reporting.
 
-### 🔹 Module 2: State Transition & Token Matching
+### 🔹 Module 2: State Transition & Token Matching (Pending)
 * **Goal:** Build the manual `switch-case` state machine.
 * **Process:** Accumulate valid characters into a string `buffer`. When your state machine hits an accepting state (e.g., reaching a space after spelling `"spin"`), call the Module 3 packaging function:
   ```c
@@ -49,6 +49,9 @@ Any C file that interacts with tokens must include Module 3's header file at the
   Token newToken = createToken(TOKEN_IDENTIFIER, buffer, current_line, current_column);
   ```
 * **💡 Pro-Tip:** You do not need to manually check if identifiers are keywords (like `spin`, `grab`, `num`). Just pass them as `TOKEN_IDENTIFIER`, and Module 3's internal DFA registry will automatically upgrade them to reserved words!
+
+PART A (Identifiers, Keywords and Reserved Words, Numbers and Text Literals, Comments): COMPLETED
+PART B (Main Switch loop, Operators, Delimiters and Brackets, Fallbacks): PENDING
 
 ### 🔹 Module 3: Token Structs & Keyword Registry (Completed)
 * **Goal:** Handles the `Token` objects, enums, and keyword lookup logic to keep the state machine clean. 
