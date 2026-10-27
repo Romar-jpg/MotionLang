@@ -17,12 +17,24 @@ git clone https://github.com/Romar-jpg/MotionLang.git
 **2. Compile the project:**
 Navigate into the folder and use GCC to compile:
 ```bash
-gcc main.c motionlang_tokens.c motionlang_lexer.c motionlang_stream.c -o motionlang_lexer
+mingw32-make
 ```
 
 **3. Run the executable:**
-* **Windows:** `.\motionlang_lexer.exe`
-* **Linux/Mac:** `./motionlang_lexer`
+The lexer strictly accepts only `.mtnl` files. You can pass your source file as an argument.
+* **Windows:** `.\motionlang_lexer.exe test.mtnl`
+* **Linux/Mac:** `./motionlang_lexer test.mtnl`
+
+*(If no file is provided, it defaults to looking for `test.mtnl` in the directory).*
+
+**4. Check the Output:**
+Upon successful execution, the lexer will generate a plain text file named **`Symbol Table.txt`** containing the mapped tokens, lexemes, and exact line/column coordinates.
+
+**5. Clean the Workspace:**
+To remove generated files, simply run:
+```bash
+mingw32-make clean
+```
 
 **NOTE**: Everytime na may na-change sa code, you must COMPILE the project first before running the executable. Need siya para mag-take effect yung changes.
 If walang changes, then kahit yung executable lang ang i-run.
@@ -39,29 +51,29 @@ Any C file that interacts with tokens must include Module 3's header file at the
 #include "motionlang_tokens.h"
 ```
 
-### 🔹 Module 1: Engine & Stream Handlers (Completed?)
+### 🔹 Module 1: Engine & Stream Handlers (Completed)
 * **Goal:** Read the source file character by character using `fgetc()`.
 * **Requirement for Mod 3:** You must track the `current_line` and `current_column` integers. Every time you read a newline (`\n`), increment the line counter and reset the column counter. 
-* **Output:** Pass these spatial coordinates to Module 2 so they can be bundled into the token for accurate error reporting.
+* **Output:** Passes these spatial coordinates to Module 2 so they can be bundled into the token for accurate error reporting. Fully integrated via the stream bridge.
 
 ### 🔹 Module 2: State Transition & Token Matching (Completed)
 * **Goal:** Build the manual `switch-case` state machine.
-* **Process:** Accumulate valid characters into a string `buffer`. When your state machine hits an accepting state (e.g., reaching a space after spelling `"spin"`), call the Module 3 packaging function:
+* **Process:** Accumulates valid characters into a string `buffer`. When the state machine hits an accepting state, it calls the Module 3 packaging function:
   ```c
   // Example call:
   Token newToken = createToken(TOKEN_IDENTIFIER, buffer, current_line, current_column);
   ```
 * **💡 Pro-Tip:** You do not need to manually check if identifiers are keywords (like `spin`, `grab`, `num`). Just pass them as `TOKEN_IDENTIFIER`, and Module 3's internal DFA registry will automatically upgrade them to reserved words!
 
-PART A (Identifiers, Keywords and Reserved Words, Numbers and Text Literals, Comments): COMPLETED
+PART A (Identifiers, Keywords and Reserved Words, Numbers and Text Literals, Comments): COMPLETED  
 PART B (Main Switch loop, Operators, Delimiters and Brackets, Fallbacks): COMPLETED
 
 ### 🔹 Module 3: Token Structs & Keyword Registry (Completed)
 * **Goal:** Handles the `Token` objects, enums, and keyword lookup logic to keep the state machine clean. 
 * **Architecture:** Built strictly as a Deterministic Finite Automaton (DFA) without `<string.h>` or `strcmp` shortcuts to adhere to project constraints.
 
-### 🔹 Module 4: Test Suite & Build (Pending)
-* **Goal:** Will handle `.mtnl` file testing and setting up the `Makefile` to replace the manual `gcc` commands.
+### 🔹 Module 4: Test Suite & Build (Completed)
+* **Goal:** Handles `.mtnl` file syntax testing and strict file extension validation. Implements the `Makefile` build system to replace manual `gcc` commands and generate the strict `Symbol Table.txt` output file.
 
 ---
 
@@ -69,7 +81,7 @@ PART B (Main Switch loop, Operators, Delimiters and Brackets, Fallbacks): COMPLE
 
 | Error Type | Description & Solution |
 | :--- | :--- |
-| **Exit Code -1** <br>*(Undefined Reference)* | If you use the VS Code "Run" button and get this error, your editor is only compiling your active tab. <br><br>**Solution:** Use the terminal `gcc` command above, or update your `.vscode/tasks.json` to compile `"${workspaceFolder}\\*.c"`. |
+| **Exit Code -1** <br>*(Undefined Reference)* | If you use the VS Code "Run" button and get this error, your editor is only compiling your active tab. <br><br>**Solution:** Use the terminal `mingw32-make` command above, or update your `.vscode/tasks.json` to compile `"${workspaceFolder}\\*.c"`. |
 | **Error 4551** <br>*(App Control Block)* | Windows Defender or your antivirus will likely block the freshly compiled `.exe`. <br><br>**Solution:** Add your project folder to your Antivirus/Windows Security **Exclusions** list. |
 
 

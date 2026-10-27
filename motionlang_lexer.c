@@ -1,23 +1,46 @@
 #include <stdio.h>
 #include <ctype.h>
 #include "motionlang_tokens.h"
+#include "stream.h" // Import Module 1
 
 // ============================================================================
-// MODULE 1 IMPORTS (Engine & Stream Handlers)
+// MODULE 1 & 2 INTEGRATION BRIDGE
 // ============================================================================
-extern int getNextChar(void);
-extern void ungetChar(int c);
-extern int current_line;    
-extern int current_column; 
-// might change if may Module 1 na
+SourceStream *lexer_stream = NULL; // The global stream pointer
+
+// Global coordinate trackers expected by Module 2
+int current_line = 1;    
+int current_column = 0; 
+
+// Wrapper to fetch char and sync coordinates from Module 1
+int getNextChar(void) {
+    if (!lexer_stream) return EOF;
+    int c = next_char(lexer_stream);
+    current_line = lexer_stream->current_line;
+    current_column = lexer_stream->current_column;
+    return c;
+}
+
+// Wrapper to push a character back into Module 1's buffer
+void ungetChar(int c) {
+    if (c == EOF || !lexer_stream) return;
+    
+    // Utilize Module 1's peek buffer to "un-get" the character
+    lexer_stream->peek_buffer = (char)c;
+    lexer_stream->has_peeked = 1;
+    
+    // Reverse the column coordinate by 1 so it isn't double-counted
+    lexer_stream->current_column--;
+    current_column = lexer_stream->current_column;
+}
 
 // ============================================================================
 // MODULE 3 IMPORTS (Token Structs & Keyword Registry)
 // ============================================================================
-// Module 3's DFA automatically upgrades TOKEN_IDENTIFIER to keywords
 extern Token createToken(TokenType type, const char* lexeme, int line, int column);
+
 // ============================================================================
-// MODULE 2 - PART A: Identfiers, Keywords and Reserved Words, Literals, Comments
+// MODULE 2 - PART A: Identifiers, Keywords and Reserved Words, Literals, Comments
 // ============================================================================
 
 // 1. Identifiers (Module 3 automatically upgrades to keywords)
@@ -108,15 +131,11 @@ Token handle_string(int quote_char) {
     char buffer[100];
     int idx = 0;
     int start_col = current_column;
-    int valid = 1;
     int c;
 
     while ((c = getNextChar()) != EOF && c != quote_char) {
         if (c == '\n') {
             return createToken(TOKEN_UNKNOWN, "Unterminated string", current_line, start_col);
-        }
-        if (!isalnum((unsigned char)c)) {
-            valid = 0;
         }
         if (idx < (int)sizeof(buffer) - 1) {
             buffer[idx++] = (char)c;
@@ -128,9 +147,7 @@ Token handle_string(int quote_char) {
     }
 
     buffer[idx] = '\0';
-    if (!valid) {
-        return createToken(TOKEN_UNKNOWN, buffer, current_line, start_col);
-    }
+    
     return createToken(TOKEN_STRING_LITERAL, buffer, current_line, start_col);
 }
 

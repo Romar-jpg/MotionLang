@@ -10,11 +10,10 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            //Orig: C:/msys64/ucrt64/bin/gcc.exe
-            "compilerPath":  "C:/MinGW/bin/gcc.exe" ,
             "intelliSenseMode": "windows-gcc-x64",
             "cStandard": "${default}",
-            "cppStandard": "${default}"
+            "cppStandard": "${default}",
+            "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe"
         }
     ],
     "version": 4
