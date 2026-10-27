@@ -17,7 +17,7 @@ git clone https://github.com/Romar-jpg/MotionLang.git
 **2. Compile the project:**
 Navigate into the folder and use GCC to compile:
 ```bash
-gcc main.c motionlang_tokens.c motionlang_lexer.c -o motionlang_lexer
+gcc main.c motionlang_tokens.c motionlang_lexer.c motionlang_stream.c -o motionlang_lexer
 ```
 
 **3. Run the executable:**
