@@ -17,7 +17,7 @@ git clone https://github.com/Romar-jpg/MotionLang.git
 **2. Compile the project:**
 Navigate into the folder and use GCC to compile:
 ```bash
-gcc main.c motionlang_tokens.c motionlang_lexer.c -o motionlang_lexer
+gcc main.c motionlang_tokens.c motionlang_lexer.c motionlang_stream.c -o motionlang_lexer
 ```
 
 **3. Run the executable:**
@@ -36,12 +36,12 @@ Any C file that interacts with tokens must include Module 3's header file at the
 #include "motionlang_tokens.h"
 ```
 
-### 🔹 Module 1: Engine & Stream Handlers
+### 🔹 Module 1: Engine & Stream Handlers (Completed?)
 * **Goal:** Read the source file character by character using `fgetc()`.
 * **Requirement for Mod 3:** You must track the `current_line` and `current_column` integers. Every time you read a newline (`\n`), increment the line counter and reset the column counter. 
 * **Output:** Pass these spatial coordinates to Module 2 so they can be bundled into the token for accurate error reporting.
 
-### 🔹 Module 2: State Transition & Token Matching (Pending)
+### 🔹 Module 2: State Transition & Token Matching (Completed)
 * **Goal:** Build the manual `switch-case` state machine.
 * **Process:** Accumulate valid characters into a string `buffer`. When your state machine hits an accepting state (e.g., reaching a space after spelling `"spin"`), call the Module 3 packaging function:
   ```c
@@ -51,7 +51,7 @@ Any C file that interacts with tokens must include Module 3's header file at the
 * **💡 Pro-Tip:** You do not need to manually check if identifiers are keywords (like `spin`, `grab`, `num`). Just pass them as `TOKEN_IDENTIFIER`, and Module 3's internal DFA registry will automatically upgrade them to reserved words!
 
 PART A (Identifiers, Keywords and Reserved Words, Numbers and Text Literals, Comments): COMPLETED
-PART B (Main Switch loop, Operators, Delimiters and Brackets, Fallbacks): PENDING
+PART B (Main Switch loop, Operators, Delimiters and Brackets, Fallbacks): COMPLETED
 
 ### 🔹 Module 3: Token Structs & Keyword Registry (Completed)
 * **Goal:** Handles the `Token` objects, enums, and keyword lookup logic to keep the state machine clean. 
