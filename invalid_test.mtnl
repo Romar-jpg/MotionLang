@@ -1,0 +1,39 @@
+# MotionLang Lexical Analyzer - Comprehensive Error Suite
+# Triggers lexical error traps across identifier rules, numeric
+# formats, string/char bounds, and unauthorized symbol sets.
+
+# 1. Invalid Identifier Constraints 
+# cannot start with underscore
+hold num _counter = 0;
+
+# Identifiers cannot contain digits anywhere.
+hold dec box1 = 15.5;
+
+# Rule: Identifiers cannot put unauthorized symbols or hyphens.
+hold text total@count = "5000000";
+hold text total-count = "hyphenated";
+
+# Rule: Whitespace cannot split an identifier.
+hold num box score = 50;
+
+# 2. Unauthorized Symbols & Foreign Characters
+# Traps characters outside the MotionLang operational and delimiter alphabet.
+hold text money = 500$;
+hold num bit_flag = 10 & 20;
+hold num score = 100 \ 2;
+
+# 3. Malformed Numeric & Decimal Literals
+# Multiple consecutive decimal points 
+hold dec broken_decimal = 12.34.56;
+
+# 4. Unterminated Literals & Boundary Violations
+hold text open_string = "She is my black pearl;
+
+# Empty character
+hold char no_char = '';
+
+# Multi-character literal inside single quotes
+hold char multi_char = 'abc';
+
+# Unterminated character using single quote
+hold char open_char = 'x;

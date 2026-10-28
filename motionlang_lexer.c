@@ -265,7 +265,7 @@ int start_col = current_column;
             current_column++; 
             return createToken(TOKEN_SEMICOLON, ";", current_line, start_col);
 
-        // Operations Symbols [cite: 7]
+        // Operations Symbols 
         // Arithmetic Operators
         case '+': 
             current_column++; 

@@ -13,7 +13,7 @@
             "intelliSenseMode": "windows-gcc-x64",
             "cStandard": "${default}",
             "cppStandard": "${default}",
-            "compilerPath": "C:\\msys64\\ucrt64\\bin\\gcc.exe"
+            "compilerPath": "C:/MinGW/bin/gcc.exe"
         }
     ],
     "version": 4

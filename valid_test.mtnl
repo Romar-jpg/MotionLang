@@ -1,0 +1,71 @@
+# Program: MotionLang Lexical Analyzer Test Suite
+# Validates all keywords, data types, operators, and delimiters
+
+# Basic variable declarations
+hold text name;
+grab name = prompt("Enter student name: ");
+
+hold num age;
+grab age = prompt("Enter student age: ");
+
+hold dec gpa = 1.25;
+hold fixed degree_program = "BSCS";
+hold text homeCity = "Manila City";
+hold text college_Year = "Sophomore";
+
+# 2. Delimiters, Brackets, and Stash Arrays
+hold stash num scores[3];
+grab scores[0] = 88;
+grab scores[1] = 92;
+grab scores[2] = 95;
+
+# 3. Arithmetic Operations: +, -, *, /, %, div, ^
+
+hold num sum = 10 + 5;
+hold num diff = 20 - 4;
+hold num product = 6 * 7;
+hold dec quotient = 15.0 / 2.0;
+hold num remainder = 17 % 5;
+hold num quotient = 17 div 5;
+hold num power_value = 2 ^ 3;
+
+# 4. Relational & Boolean Word Operators: ==, !=, <, >, <=, >=, AND, OR, NOT
+if ((age >= 18) AND NOT (gpa > 3.00)) {
+    emit "Status: Qualified Regular Adult Student";
+}
+else if ((age < 18) OR (gpa == 1.00)) {
+    emit "Status: Evaluation Needed";
+}
+else {
+    emit "Status: Standard Review";
+}
+
+if (sum != 0) {
+    emit "The sum is not zero!";
+}
+
+# 5. Loop Keywords: spin, halt, skip
+
+hold num counter = 0;
+spin (counter < 10) {
+    grab counter = counter + 1;
+
+    if (counter == 2) {
+        skip;
+    }
+
+    if (counter == 8) {
+        halt;
+    }
+}
+
+# 6. Function Keywords: routine, return
+routine compute_bonus(num base_val, dec multiplier) {
+    hold dec adjusted_val = base_val * multiplier;
+    return adjusted_val;
+}
+
+# 7. Free-Field Format Verification
+hold   num    spaced_val   =
+    100   +
+    200   ;
