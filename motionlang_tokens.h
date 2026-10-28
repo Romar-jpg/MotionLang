@@ -28,7 +28,7 @@ typedef enum {
     TOKEN_ASSIGN, TOKEN_EQUAL, TOKEN_NOT_EQUAL, TOKEN_LESS, TOKEN_GREATER,
     TOKEN_LESS_EQUAL, TOKEN_GREATER_EQUAL,
     
-    // Delimiters & Brackets[cite: 7]
+    // Delimiters & Brackets
     TOKEN_LPAREN, TOKEN_RPAREN,    // ()
     TOKEN_LBRACKET, TOKEN_RBRACKET, // []
     TOKEN_LBRACE, TOKEN_RBRACE,     // {}
@@ -38,7 +38,7 @@ typedef enum {
     TOKEN_UNKNOWN, TOKEN_EOF
 } TokenType;
 
-// The primary Token structure[cite: 11]
+// The primary Token structure
 typedef struct {
     TokenType type;
     char* lexeme;

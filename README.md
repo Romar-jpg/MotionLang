@@ -22,10 +22,10 @@ mingw32-make
 
 **3. Run the executable:**
 The lexer strictly accepts only `.mtnl` files. You can pass your source file as an argument.
-* **Windows:** `.\motionlang_lexer.exe test.mtnl`
-* **Linux/Mac:** `./motionlang_lexer test.mtnl`
+* **Windows:** `.\motionlang_lexer.exe valid_test.mtnl`
+* **Linux/Mac:** `./motionlang_lexer invalid_test.mtnl`
 
-*(If no file is provided, it defaults to looking for `test.mtnl` in the directory).*
+*(If no file is provided, it defaults to looking for `valid_test.mtnl` in the directory).*
 
 **4. Check the Output:**
 Upon successful execution, the lexer will generate a plain text file named **`Symbol Table.txt`** containing the mapped tokens, lexemes, and exact line/column coordinates.
