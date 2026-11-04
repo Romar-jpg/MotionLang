@@ -30,6 +30,7 @@ hold num quotient = 17 div 5;
 hold num power_value = 2 ^ 3;
 
 # 4. Relational & Boolean Word Operators: ==, !=, <, >, <=, >=, AND, OR, NOT
+
 if ((age >= 18) AND NOT (gpa > 3.00)) {
     emit "Status: Qualified Regular Adult Student";
 }
@@ -42,6 +43,10 @@ else {
 
 if (sum != 0) {
     emit "The sum is not zero!";
+}
+
+if (diff <= 0) {
+    emit "Negative diff!"
 }
 
 # 5. Loop Keywords: spin, halt, skip
