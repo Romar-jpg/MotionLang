@@ -22,8 +22,8 @@ mingw32-make
 
 **3. Run the executable:**
 The lexer strictly accepts only `.mtnl` files. You can pass your source file as an argument.
-* **Windows:** `.\motionlang_lexer.exe valid_test.mtnl`
-* **Linux/Mac:** `./motionlang_lexer invalid_test.mtnl`
+* **Windows:** ```.\motionlang_lexer.exe valid_test.mtnl```
+* **Linux/Mac:** ```./motionlang_lexer invalid_test.mtnl```
 
 *(If no file is provided, it defaults to looking for `valid_test.mtnl` in the directory).*
 
