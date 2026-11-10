@@ -101,7 +101,12 @@ int isValidFileExtension(const char* filename) {
 }
 
 int main(int argc, char *argv[]) {
-    const char* inputFile = (argc > 1) ? argv[1] : "valid_test.mtnl";
+    if (argc < 2) {
+        fprintf(stderr, "Usage: %s <input_file.mtnl>\n", argv[0]);
+        return 1;
+    }
+
+    const char* inputFile = argv[1];
 
     printf("Validating file type for: %s\n", inputFile);
     if (!isValidFileExtension(inputFile)) {
