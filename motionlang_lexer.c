@@ -151,33 +151,55 @@ Token handle_string(int quote_char) {
     return createToken(TOKEN_STRING_LITERAL, buffer, current_line, start_col);
 }
 
-// 4. Comments #
-void skip_comment(void) {
+// 4. Comments (# single-line and [# ... #] multi-line)
+Token handle_comment(int is_multiline, int start_line, int start_col) {
+    char buffer[512];
+    int idx = 0;
     int c;
 
-    c = getNextChar();
-    if (c == '[') {
+    if (is_multiline) {
+        buffer[idx++] = '[';
+        buffer[idx++] = '#';
         while ((c = getNextChar()) != EOF) {
             if (c == '#') {
-                c = getNextChar();
-                if (c == ']') {
-                    return;
+                int next = getNextChar();
+                if (next == ']') {
+                    if (idx < (int)sizeof(buffer) - 2) {
+                        buffer[idx++] = '#';
+                        buffer[idx++] = ']';
+                    }
+                    buffer[idx] = '\0';
+                    return createToken(TOKEN_COMMENT, buffer, start_line, start_col);
                 }
-                if (c == EOF) {
-                    return;
+                if (next != EOF) ungetChar(next);
+            }
+
+            // Flatten actual newlines so Symbol Table.txt stays on one row
+            if (c == '\n') {
+                if (idx < (int)sizeof(buffer) - 2) {
+                    buffer[idx++] = '\\';
+                    buffer[idx++] = 'n';
                 }
-                ungetChar(c);
+            } else if (c != '\r') {
+                if (idx < (int)sizeof(buffer) - 1) {
+                    buffer[idx++] = (char)c;
+                }
             }
         }
-        return;
+        buffer[idx] = '\0';
+        return createToken(TOKEN_UNKNOWN, "Unterminated multi-line comment", start_line, start_col);
+    } else {
+        buffer[idx++] = '#';
+        while ((c = getNextChar()) != EOF && c != '\n') {
+            if (c != '\r' && idx < (int)sizeof(buffer) - 1) {
+                buffer[idx++] = (char)c;
+            }
+        }
+        buffer[idx] = '\0';
+        return createToken(TOKEN_COMMENT, buffer, start_line, start_col);
     }
-
-    if (c != EOF && c != '\n') {
-        ungetChar(c);
-    }
-    while ((c = getNextChar()) != EOF && c != '\n') {
-        // Discard single-line comment contents until line end.
-    }
+    // Fallback return so GCC knows all control paths return a Token
+    return createToken(TOKEN_UNKNOWN, "Invalid comment", start_line, start_col);
 }
 
 
@@ -227,10 +249,9 @@ int start_col = current_column;
         case '\'':
             return handle_string(c);
 
-        // Comment Handling Dispatch
+        // Single-Line Comment Handling Dispatch
         case '#':
-            skip_comment();
-            return getNextToken();
+            return handle_comment(0, current_line, start_col);
 
         // Delimiters & Brackets[cite: 5, 6]
         case '(': 
@@ -241,9 +262,16 @@ int start_col = current_column;
             current_column++; 
             return createToken(TOKEN_RPAREN, ")", current_line, start_col);
 
-        case '[': 
+        // Left Bracket OR Multi-Line Comment ([# ... #]) Dispatch
+        case '[': {
+            int next = getNextChar();
+            if (next == '#') {
+                return handle_comment(1, current_line, start_col);
+            }
+            if (next != EOF) ungetChar(next);
             current_column++; 
             return createToken(TOKEN_LBRACKET, "[", current_line, start_col);
+        }
 
         case ']': 
             current_column++; 

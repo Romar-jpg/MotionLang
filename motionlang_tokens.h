@@ -33,6 +33,9 @@ typedef enum {
     TOKEN_LBRACKET, TOKEN_RBRACKET, // []
     TOKEN_LBRACE, TOKEN_RBRACE,     // {}
     TOKEN_COMMA, TOKEN_SEMICOLON,   // , ;
+
+    // Comments
+    TOKEN_COMMENT,
     
     // End of File / Unknown
     TOKEN_UNKNOWN, TOKEN_EOF

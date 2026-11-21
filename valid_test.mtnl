@@ -1,5 +1,6 @@
-# Program: MotionLang Lexical Analyzer Test Suite
-# Validates all keywords, data types, operators, and delimiters
+[# Program: MotionLang Lexical Analyzer Test Suite
+ Validates all keywords, data types, operators, and delimiters
+ #]
 
 # Basic variable declarations
 hold text name;
@@ -81,3 +82,5 @@ counter = counter + 1;
 hold   num    spaced_val   =
     100   +
     200   ;
+
+
