@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <ctype.h>
+#include <stdbool.h>
+#include <string.h>
 #include "motionlang_tokens.h"
 #include "stream.h" // Import Module 1
 
-// ============================================================================
+// ===========================================
 // MODULE 1 & 2 INTEGRATION BRIDGE
-// ============================================================================
+// ===========================================
 SourceStream *lexer_stream = NULL; // The global stream pointer
 
 // Global coordinate trackers expected by Module 2
@@ -43,14 +45,33 @@ extern Token createToken(TokenType type, const char* lexeme, int line, int colum
 // MODULE 2 - PART A: Identifiers, Keywords and Reserved Words, Literals, Comments
 // ============================================================================
 
+/// Helper: Characters that legally terminate an identifier in MotionLang
+static bool is_identifier_boundary(int c) {
+    if (c == EOF || isspace((unsigned char)c)) return true;
+    switch (c) {
+        // Delimiters, Brackets, Quotes, Comments
+        case '(': case ')': case '[': case ']':
+        case '{': case '}': case ',': case ';':
+        case '"': case '\'': case '#':
+        // Arithmetic & Relational Operators defined in getNextToken
+        case '+': case '-': case '*': case '/': case '%': case '^':
+        case '=': case '<': case '>': case '!':
+            return true;
+        default:
+            return false;
+    }
+}
+
 // 1. Identifiers (Module 3 automatically upgrades to keywords)
 Token handle_identifier(int first_char) {
     char buffer[100];
     int idx = 0;
     int start_col = current_column;
+    bool has_error = false;
 
-    if (!isalpha((unsigned char)first_char)) {
-        return createToken(TOKEN_UNKNOWN, "Invalid identifier", current_line, start_col);
+    // Rule: Must start with a lowercase letter [a-z]
+    if (!islower((unsigned char)first_char)) {
+        has_error = true;
     }
 
     buffer[idx++] = (char)first_char;
@@ -58,18 +79,47 @@ Token handle_identifier(int first_char) {
     int c;
     while ((c = getNextChar()) != EOF) {
         if (isalpha((unsigned char)c) || c == '_') {
+            // Valid subsequent characters: [a-zA-Z_]
             if (idx < (int)sizeof(buffer) - 1) {
                 buffer[idx++] = (char)c;
             }
-        } else {
+        } else if (is_identifier_boundary(c)) {
+            // Valid delimiter or operator -> stop cleanly without consuming it
             ungetChar(c);
             break;
+        } else {
+            // Digit (0-9) or invalid symbol (e.g., '@', '.') attached to identifier
+            has_error = true;
+            if (idx < (int)sizeof(buffer) - 1) {
+                buffer[idx++] = (char)c;
+            }
         }
     }
     buffer[idx] = '\0';
 
+    // Allow uppercase reserved keywords (like AND / OR) to reach Module 3's keyword check
+    if (has_error && strcmp(buffer, "AND") != 0 && strcmp(buffer, "OR") != 0) {
+        return createToken(TOKEN_UNKNOWN, buffer, current_line, start_col);
+    }
+
     // Module 3 internally checks if this buffer matches a reserved word
     return createToken(TOKEN_IDENTIFIER, buffer, current_line, start_col);
+}
+
+// 2. Number Literals (Integers & Decimals)
+// Shared helper: Characters that legally terminate an identifier or number
+static bool is_literals_boundary(int c) {
+    if (c == EOF || isspace((unsigned char)c)) return true;
+    switch (c) {
+        case '(': case ')': case '[': case ']':
+        case '{': case '}': case ',': case ';':
+        case '"': case '\'': case '#':
+        case '+': case '-': case '*': case '/': case '%': case '^':
+        case '=': case '<': case '>': case '!':
+            return true;
+        default:
+            return false;
+    }
 }
 
 // 2. Number Literals (Integers & Decimals)
@@ -81,49 +131,64 @@ Token handle_number(int first_char) {
 
     TokenType type = TOKEN_INTEGER_LITERAL;
     int state = 0; // 0: integer digits, 1: saw decimal dot, 2: fraction digits
+    bool has_error = false;
     int c;
 
     while ((c = getNextChar()) != EOF) {
         switch (state) {
             case 0:
-                if (isdigit(c)) {
+                if (isdigit((unsigned char)c)) {
                     if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
                 } else if (c == '.') {
                     state = 1;
                     if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
-                } else {
+                } else if (is_literals_boundary(c)) {
                     ungetChar(c);
                     buffer[idx] = '\0';
-                    return createToken(type, buffer, current_line, start_col);
+                    return createToken(has_error ? TOKEN_UNKNOWN : type, buffer, current_line, start_col);
+                } else {
+                    // Letter or illegal symbol glued to integer (e.g., 123a45)
+                    has_error = true;
+                    if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
                 }
                 break;
 
             case 1:
-                if (isdigit(c)) {
+                if (isdigit((unsigned char)c)) {
                     state = 2;
                     type = TOKEN_DECIMAL_LITERAL;
                     if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
-                } else {
+                } else if (is_literals_boundary(c)) {
+                    // Trailing dot with no digits (e.g., 12.)
                     ungetChar(c);
                     buffer[idx] = '\0';
                     return createToken(TOKEN_UNKNOWN, buffer, current_line, start_col);
+                } else {
+                    // Double dot or letter right after dot (e.g., 12..5 or 12.a)
+                    has_error = true;
+                    if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
                 }
                 break;
 
             case 2:
-                if (isdigit(c)) {
+                if (isdigit((unsigned char)c)) {
                     if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
-                } else {
+                } else if (is_literals_boundary(c)) {
                     ungetChar(c);
                     buffer[idx] = '\0';
-                    return createToken(type, buffer, current_line, start_col);
+                    return createToken(has_error ? TOKEN_UNKNOWN : type, buffer, current_line, start_col);
+                } else {
+                    // Extra decimal point or letter in fraction (e.g., 12.34.56)
+                    has_error = true;
+                    if (idx < (int)sizeof(buffer) - 1) buffer[idx++] = (char)c;
                 }
                 break;
         }
     }
 
     buffer[idx] = '\0';
-    return createToken(type, buffer, current_line, start_col);
+    if (state == 1) has_error = true; // Handle EOF right after a trailing dot
+    return createToken(has_error ? TOKEN_UNKNOWN : type, buffer, current_line, start_col);
 }
 
 // 3. Text Literals
@@ -253,7 +318,7 @@ int start_col = current_column;
         case '#':
             return handle_comment(0, current_line, start_col);
 
-        // Delimiters & Brackets[cite: 5, 6]
+        // Delimiters & Brackets
         case '(': 
             current_column++; 
             return createToken(TOKEN_LPAREN, "(", current_line, start_col);

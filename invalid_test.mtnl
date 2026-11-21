@@ -1,22 +1,22 @@
-# MotionLang Lexical Analyzer - Comprehensive Error Suite
-# Triggers lexical error traps across identifier rules, numeric
-# formats, string/char bounds, and unauthorized symbol sets.
+[# MotionLang Lexical Analyzer - Comprehensive Error Suite
+Triggers lexical error traps across identifier rules, numeric
+formats, string/char bounds, and unauthorized symbol sets. #]
 
-#Must start lowercase, cannot start with uppercase or underscore.❌
+#Must start lowercase, cannot start with uppercase or underscore.
 hold num UserScore = 100; 
 
-# 1. Invalid Identifier Constraints ❌
+# 1. Invalid Identifier Constraints 
 # cannot start with underscore 
 hold num _counter = 0;
 
-# Identifiers cannot contain digits anywhere.❌
+# Identifiers cannot contain digits anywhere.
 hold dec box1 = 15.5;
 
-# Rule: Identifiers cannot put unauthorized symbols or hyphens.❌
+# Rule: Identifiers cannot put unauthorized symbols or hyphens.
 hold text total@count = "5000000";
 hold text total-count = "hyphenated";
 
-# Rule: Whitespace cannot split an identifier.❌
+# Rule: Whitespace cannot split an identifier.
 hold num box score = 50;
 
 # no trailing decimal digits❌
@@ -51,6 +51,6 @@ hold num error_num = 123a45;
 
 # 5. Malformed Operator Sequences❌
 # Invalid compound assignment / relational sequences
-hold num false_logic = 10 === 5; (first two is detected as relational_equal, then third one is assignment equal)
-hold num bad_not = 10 ! 2; (detected as separates)
+hold num false_logic = 10 === 5; # (first two is detected as relational_equal, then third one is assignment equal)
+hold num bad_not = 10 ! 2; # (detected as separates)
 
