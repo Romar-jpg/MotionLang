@@ -1,5 +1,6 @@
-# Program: MotionLang Lexical Analyzer Test Suite
-# Validates all keywords, data types, operators, and delimiters
+[# Program: MotionLang Lexical Analyzer Test Suite
+ Validates all keywords, data types, operators, and delimiters
+ #]
 
 # Basic variable declarations
 hold text name;
@@ -70,7 +71,16 @@ routine compute_bonus(num base_val, dec multiplier) {
     return adjusted_val;
 }
 
+
+# Plain Assignment Statements Verification
+gpa = 1.25;
+adjusted_val = base_val;
+counter = counter + 1;
+
+
 # 7. Free-Field Format Verification
 hold   num    spaced_val   =
     100   +
     200   ;
+
+

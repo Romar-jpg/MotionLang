@@ -73,6 +73,9 @@ const char* getTokenClassificationName(TokenType type) {
         case TOKEN_COMMA:           return "DELIM_COMMA";
         case TOKEN_SEMICOLON:       return "DELIM_SEMICOLON";
 
+        // Comments
+        case TOKEN_COMMENT:         return "COMMENT";
+
         // End of File / Unknown
         case TOKEN_UNKNOWN:         return "LEXICAL_ERROR";
         case TOKEN_EOF:             return "END_OF_FILE";
@@ -98,6 +101,62 @@ int isValidFileExtension(const char* filename) {
     }
     
     return 0;
+}
+
+// Prints a token row to Symbol Table.txt, wrapping long lexemes cleanly across lines
+void writeFormattedTokenRow(FILE *out, const Token *t) {
+    const int COL_WIDTH = 55;
+    const char *className = getTokenClassificationName(t->type);
+    const char *lex = t->lexeme;
+
+    // Count total characters in lexeme
+    int len = 0;
+    while (lex[len] != '\0') {
+        len++;
+    }
+
+    // If it fits within the column width, print a single normal row
+    if (len <= COL_WIDTH) {
+        fprintf(out, "%-26s | %-55s | Line: %-3d Col: %-3d\n",
+                className, lex, t->line, t->column);
+        return;
+    }
+
+    // Otherwise, print the first chunk with classification and coordinates
+    int offset = 0;
+    while (offset < len) {
+        char chunk[56];
+        int remaining = len - offset;
+        int take = (remaining > COL_WIDTH) ? COL_WIDTH : remaining;
+
+        // Try to break cleanly at a space if we aren't at the end of the string
+        if (remaining > COL_WIDTH) {
+            int last_space = -1;
+            for (int i = 0; i < take; i++) {
+                if (lex[offset + i] == ' ') {
+                    last_space = i;
+                }
+            }
+            if (last_space > 0) {
+                take = last_space + 1; // Include the space at the end of the wrapped line
+            }
+        }
+
+        for (int i = 0; i < take; i++) {
+            chunk[i] = lex[offset + i];
+        }
+        chunk[take] = '\0';
+
+        if (offset == 0) {
+            fprintf(out, "%-26s | %-55s | Line: %-3d Col: %-3d\n",
+                    className, chunk, t->line, t->column);
+        } else {
+            // Continuation rows keep the outer columns blank so the table grid stays straight
+            fprintf(out, "%-26s | %-55s |\n", "", chunk);
+        }
+
+        offset += take;
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -129,26 +188,19 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Aligned header layout
-    fprintf(outputFile, "=========================================================================================\n");
-    fprintf(outputFile, "%-26s | %-24s | %s\n", "TOKEN CLASSIFICATION", "LEXEME", "COORDINATES");
-    fprintf(outputFile, "=========================================================================================\n");
+   // Aligned header layout
+    fprintf(outputFile, "====================================================================================================================\n");
+    fprintf(outputFile, "%-26s | %-55s | %s\n", "TOKEN CLASSIFICATION", "LEXEME", "COORDINATES");
+    fprintf(outputFile, "====================================================================================================================\n");
 
-    Token t;
+   Token t;
     do {
         t = getNextToken();
-        
-        // Writes descriptive token classification rather than raw enum integers
-        fprintf(outputFile, "%-26s | %-24s | Line: %-3d Col: %-3d\n", 
-                getTokenClassificationName(t.type), 
-                t.lexeme, 
-                t.line, 
-                t.column);
-        
+        writeFormattedTokenRow(outputFile, &t);
         freeToken(&t);
     } while (t.type != TOKEN_EOF);
-
-    fprintf(outputFile, "=========================================================================================\n");
+    
+    fprintf(outputFile, "====================================================================================================================\n");
 
     fclose(outputFile);
     close_stream(lexer_stream);
