@@ -11,29 +11,26 @@ TokenType lookupKeyword(const char* lexeme) {
         char c = lexeme[i];
 
         switch (state) {
-            // q0: Start State - Evaluate the first character
-            case 0:
-                if (c == 's') state = 10;      // spin, skip, stash
-                else if (c == 'h') state = 20; // hold, halt
-                else if (c == 'd') state = 30; // dec, div
-                else if (c == 'n') state = 40; // num
-                else if (c == 'c') state = 50; // char
-                else if (c == 'f') state = 60; // flag, fixed
-                else if (c == 't') state = 70; // text
-                else if (c == 'i') state = 80; // if
-                else if (c == 'e') state = 90; // else, emit
-                else if (c == 'g') state = 110; // grab
-                else if (c == 'p') state = 120; // prompt
-                else if (c == 'r') state = 130; // routine, return
-                else if (c == 'A') state = 150; // AND
-                else if (c == 'O') state = 160; // OR
-                else if (c == 'N') state = 170; // NOT
-                else return TOKEN_IDENTIFIER;  
+            case 0: // q0: start State - Evaluate first char
+                if (c == 's') state = 10;
+                else if (c == 'h') state = 20;
+                else if (c == 'd') state = 30;
+                else if (c == 'n') state = 40;
+                else if (c == 'c') state = 50;
+                else if (c == 'f') state = 60;
+                else if (c == 't') state = 70;
+                else if (c == 'i') state = 80;
+                else if (c == 'e') state = 90;
+                else if (c == 'g') state = 110;
+                else if (c == 'p') state = 120;
+                else if (c == 'r') state = 130;
+                else if (c == 'A') state = 150;
+                else if (c == 'O') state = 160;
+                else if (c == 'N') state = 170;
+                else return TOKEN_IDENTIFIER;
                 break;
 
-            // ==========================================
-            // DFA Branch: 's' (spin, skip, stash)
-            // ==========================================
+            // DFA Branch 's' (spin, skip, stash)
             case 10:
                 if (c == 'p') state = 11;
                 else if (c == 'k') state = 15;
@@ -54,9 +51,7 @@ TokenType lookupKeyword(const char* lexeme) {
             case 101: if (c == 'h') state = 102; else return TOKEN_IDENTIFIER; break; // stash
             case 102: return TOKEN_IDENTIFIER;
 
-            // ==========================================
             // DFA Branch: 'h' (hold, halt)
-            // ==========================================
             case 20:
                 if (c == 'o') state = 21;
                 else if (c == 'a') state = 25;
@@ -71,9 +66,7 @@ TokenType lookupKeyword(const char* lexeme) {
             case 26: if (c == 't') state = 27; else return TOKEN_IDENTIFIER; break; // halt
             case 27: return TOKEN_IDENTIFIER;
 
-            // ==========================================
             // DFA Branch: 'd' (dec, div)
-            // ==========================================
             case 30:
                 if (c == 'e') state = 31;
                 else if (c == 'i') state = 35;
@@ -86,24 +79,19 @@ TokenType lookupKeyword(const char* lexeme) {
             case 35: if (c == 'v') state = 36; else return TOKEN_IDENTIFIER; break; // div
             case 36: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'n' (num)
-            // ==========================================
+            // DFA Branch 'n' (num)
             case 40: if (c == 'u') state = 41; else return TOKEN_IDENTIFIER; break;
             case 41: if (c == 'm') state = 42; else return TOKEN_IDENTIFIER; break; // num
             case 42: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'c' (char)
-            // ==========================================
+            //DFA: Branch 'c' (char)
+
             case 50: if (c == 'h') state = 51; else return TOKEN_IDENTIFIER; break;
             case 51: if (c == 'a') state = 52; else return TOKEN_IDENTIFIER; break;
             case 52: if (c == 'r') state = 53; else return TOKEN_IDENTIFIER; break; // char
             case 53: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'f' (flag, fixed)
-            // ==========================================
+            // DFA Branch 'f' (flag, fixed)
             case 60:
                 if (c == 'l') state = 61;
                 else if (c == 'i') state = 65;
@@ -119,23 +107,17 @@ TokenType lookupKeyword(const char* lexeme) {
             case 67: if (c == 'd') state = 68; else return TOKEN_IDENTIFIER; break; // fixed
             case 68: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 't' (text)
-            // ==========================================
+            // DFA Branch 't' (text)
             case 70: if (c == 'e') state = 71; else return TOKEN_IDENTIFIER; break;
             case 71: if (c == 'x') state = 72; else return TOKEN_IDENTIFIER; break;
             case 72: if (c == 't') state = 73; else return TOKEN_IDENTIFIER; break; // text
             case 73: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'i' (if)
-            // ==========================================
-            case 80: if (c == 'f') state = 81; else return TOKEN_IDENTIFIER; break; // if
+            // DFA Branch 'i' (if)
+            case 80: if (c == 'f') state = 81; else return TOKEN_IDENTIFIER; break;
             case 81: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'e' (else, emit)
-            // ==========================================
+           // DFA Branch 'e' (else, emit)
             case 90:
                 if (c == 'l') state = 91;
                 else if (c == 'm') state = 95;
@@ -150,17 +132,13 @@ TokenType lookupKeyword(const char* lexeme) {
             case 96: if (c == 't') state = 97; else return TOKEN_IDENTIFIER; break; // emit
             case 97: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'g' (grab)
-            // ==========================================
+            // DFA Branch 'g' (grab)    
             case 110: if (c == 'r') state = 111; else return TOKEN_IDENTIFIER; break;
             case 111: if (c == 'a') state = 112; else return TOKEN_IDENTIFIER; break;
             case 112: if (c == 'b') state = 113; else return TOKEN_IDENTIFIER; break; // grab
             case 113: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'p' (prompt)
-            // ==========================================
+        // DFA Branch 'p' (prompt)
             case 120: if (c == 'r') state = 121; else return TOKEN_IDENTIFIER; break;
             case 121: if (c == 'o') state = 122; else return TOKEN_IDENTIFIER; break;
             case 122: if (c == 'm') state = 123; else return TOKEN_IDENTIFIER; break;
@@ -168,9 +146,7 @@ TokenType lookupKeyword(const char* lexeme) {
             case 124: if (c == 't') state = 125; else return TOKEN_IDENTIFIER; break; // prompt
             case 125: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'r' (routine, return)
-            // ==========================================
+        // DFA Branch 'r' (routine, return)
             case 130:
                 if (c == 'o') state = 131;
                 else if (c == 'e') state = 141;
@@ -190,22 +166,16 @@ TokenType lookupKeyword(const char* lexeme) {
             case 144: if (c == 'n') state = 145; else return TOKEN_IDENTIFIER; break; // return
             case 145: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'A' (AND)
-            // ==========================================
+            // DFA Branch 'A' (AND)
             case 150: if (c == 'N') state = 151; else return TOKEN_IDENTIFIER; break;
             case 151: if (c == 'D') state = 152; else return TOKEN_IDENTIFIER; break; // AND
             case 152: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'O' (OR)
-            // ==========================================
-            case 160: if (c == 'R') state = 161; else return TOKEN_IDENTIFIER; break; // OR
+            // DFA Branch 'O' (OR)
+            case 160: if (c == 'R') state = 161; else return TOKEN_IDENTIFIER; break;
             case 161: return TOKEN_IDENTIFIER;
 
-            // ==========================================
-            // DFA Branch: 'N' (NOT)
-            // ==========================================
+            // DFA Branch 'N' (NOT)
             case 170: if (c == 'O') state = 171; else return TOKEN_IDENTIFIER; break;
             case 171: if (c == 'T') state = 172; else return TOKEN_IDENTIFIER; break; // NOT
             case 172: return TOKEN_IDENTIFIER;
