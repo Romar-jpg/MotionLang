@@ -153,7 +153,7 @@ RELATIONAL_GREATEREQUAL    | >=                                                 
 INTEGER_LITERAL            | 18                                                      | Line: 35  Col: 13 
 DELIM_RPAREN               | )                                                       | Line: 35  Col: 15 
 LOGICAL_AND                | AND                                                     | Line: 35  Col: 17 
-LOGICAL_NOT                | NOT                                                     | Line: 35  Col: 21 
+LEXICAL_ERROR              | NOT                                                     | Line: 35  Col: 21 
 DELIM_LPAREN               | (                                                       | Line: 35  Col: 25 
 IDENTIFIER                 | gpa                                                     | Line: 35  Col: 26 
 RELATIONAL_GREATER         | >                                                       | Line: 35  Col: 30 
@@ -277,29 +277,29 @@ KEYWORD_RETURN             | return                                             
 IDENTIFIER                 | adjusted_val                                            | Line: 71  Col: 12 
 DELIM_SEMICOLON            | ;                                                       | Line: 71  Col: 24 
 DELIM_RBRACE               | }                                                       | Line: 72  Col: 1  
-COMMENT                    | # Plain Assignment Statements Verification              | Line: 75  Col: 1  
-IDENTIFIER                 | gpa                                                     | Line: 76  Col: 1  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 76  Col: 5  
-DECIMAL_LITERAL            | 1.25                                                    | Line: 76  Col: 7  
-DELIM_SEMICOLON            | ;                                                       | Line: 76  Col: 11 
-IDENTIFIER                 | adjusted_val                                            | Line: 77  Col: 1  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 77  Col: 14 
-IDENTIFIER                 | base_val                                                | Line: 77  Col: 16 
-DELIM_SEMICOLON            | ;                                                       | Line: 77  Col: 24 
-IDENTIFIER                 | counter                                                 | Line: 78  Col: 1  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 78  Col: 9  
-IDENTIFIER                 | counter                                                 | Line: 78  Col: 11 
-OPERATOR_PLUS              | +                                                       | Line: 78  Col: 19 
-INTEGER_LITERAL            | 1                                                       | Line: 78  Col: 21 
-DELIM_SEMICOLON            | ;                                                       | Line: 78  Col: 22 
-COMMENT                    | # 7. Free-Field Format Verification                     | Line: 81  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 82  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 82  Col: 8  
-IDENTIFIER                 | spaced_val                                              | Line: 82  Col: 15 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 83  Col: 28 
-INTEGER_LITERAL            | 100                                                     | Line: 84  Col: 5  
-OPERATOR_PLUS              | +                                                       | Line: 84  Col: 11 
-INTEGER_LITERAL            | 200                                                     | Line: 85  Col: 5  
-DELIM_SEMICOLON            | ;                                                       | Line: 85  Col: 11 
-END_OF_FILE                | EOF                                                     | Line: 88  Col: 0  
+COMMENT                    | # Plain Assignment Statements Verification              | Line: 74  Col: 1  
+IDENTIFIER                 | gpa                                                     | Line: 75  Col: 1  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 75  Col: 5  
+DECIMAL_LITERAL            | 1.25                                                    | Line: 75  Col: 7  
+DELIM_SEMICOLON            | ;                                                       | Line: 75  Col: 11 
+IDENTIFIER                 | adjusted_val                                            | Line: 76  Col: 1  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 76  Col: 14 
+IDENTIFIER                 | base_val                                                | Line: 76  Col: 16 
+DELIM_SEMICOLON            | ;                                                       | Line: 76  Col: 24 
+IDENTIFIER                 | counter                                                 | Line: 77  Col: 1  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 77  Col: 9  
+IDENTIFIER                 | counter                                                 | Line: 77  Col: 11 
+OPERATOR_PLUS              | +                                                       | Line: 77  Col: 19 
+INTEGER_LITERAL            | 1                                                       | Line: 77  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 77  Col: 22 
+COMMENT                    | # 7. Free-Field Format Verification                     | Line: 79  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 80  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 80  Col: 8  
+IDENTIFIER                 | spaced_val                                              | Line: 80  Col: 15 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 81  Col: 28 
+INTEGER_LITERAL            | 100                                                     | Line: 82  Col: 5  
+OPERATOR_PLUS              | +                                                       | Line: 82  Col: 11 
+INTEGER_LITERAL            | 200                                                     | Line: 83  Col: 5  
+DELIM_SEMICOLON            | ;                                                       | Line: 83  Col: 11 
+END_OF_FILE                | EOF                                                     | Line: 86  Col: 0  
 ====================================================================================================================
