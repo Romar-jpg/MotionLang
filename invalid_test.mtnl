@@ -13,8 +13,8 @@ hold num _counter = 0;
 hold dec box1 = 15.5;
 
 # Rule: Identifiers cannot put unauthorized symbols or hyphens.
-hold text total@count = "5000000";
-hold text total-count = "hyphenated";
+hold text total@count = "5000000"; 
+hold text total-count = "hyphenated"; (nasa char set)
 
 # Rule: Whitespace cannot split an identifier.
 hold num box score = 50;
@@ -43,8 +43,6 @@ hold char multi_char = 'abc';
 
 # Unterminated character using single quote
 hold char open_char = 'x;
-
-# Unterminated char using double quote (NEW)
 
 # Unauthorized symbols within integers
 hold num error_num = 123a45; 

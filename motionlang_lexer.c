@@ -80,6 +80,7 @@ static Token try_merge_else_if(int start_col) {
     }
 
     return createToken(TOKEN_ELSE_IF, "else if", current_line, start_col);
+}
 /// Helper: Characters that legally terminate an identifier in MotionLang
 static bool is_identifier_boundary(int c) {
     if (c == EOF || isspace((unsigned char)c)) return true;
@@ -87,7 +88,7 @@ static bool is_identifier_boundary(int c) {
         // Delimiters, Brackets, Quotes, Comments
         case '(': case ')': case '[': case ']':
         case '{': case '}': case ',': case ';':
-        case '"': case '\'': case '#':
+        case '"': case '\'': case '#': 
         // Arithmetic & Relational Operators defined in getNextToken
         case '+': case '-': case '*': case '/': case '%': case '^':
         case '=': case '<': case '>': case '!':
@@ -153,7 +154,7 @@ static bool is_literals_boundary(int c) {
     switch (c) {
         case '(': case ')': case '[': case ']':
         case '{': case '}': case ',': case ';':
-        case '"': case '\'': case '#':
+        case '"': case '\'': case '#': 
         case '+': case '-': case '*': case '/': case '%': case '^':
         case '=': case '<': case '>': case '!':
             return true;
