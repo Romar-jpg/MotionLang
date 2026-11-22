@@ -1,156 +1,303 @@
 ====================================================================================================================
 TOKEN CLASSIFICATION       | LEXEME                                                  | COORDINATES
 ====================================================================================================================
-COMMENT                    | [# MotionLang Lexical Analyzer - Comprehensive Error    | Line: 1   Col: 1  
-                           | Suite\nTriggers lexical error traps across identifier   |
-                           | rules, numeric\nformats, string/char bounds, and        |
-                           | unauthorized symbol sets. #]                            |
-COMMENT                    | #Must start lowercase, cannot start with uppercase or   | Line: 5   Col: 1  
-                           | underscore.                                             |
+COMMENT                    | [# Program: MotionLang Lexical Analyzer Test Suite\n    | Line: 1   Col: 1  
+                           | Validates all keywords, data types, operators, and      |
+                           | delimiters\n #]                                         |
+COMMENT                    | # Basic variable declarations                           | Line: 5   Col: 1  
 STORAGE_HOLD               | hold                                                    | Line: 6   Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 6   Col: 6  
-LEXICAL_ERROR              | UserScore                                               | Line: 6   Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 6   Col: 20 
-INTEGER_LITERAL            | 100                                                     | Line: 6   Col: 22 
-DELIM_SEMICOLON            | ;                                                       | Line: 6   Col: 25 
-COMMENT                    | # 1. Invalid Identifier Constraints                     | Line: 8   Col: 1  
-COMMENT                    | # cannot start with underscore                          | Line: 9   Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 10  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 10  Col: 6  
-LEXICAL_ERROR              | _counter                                                | Line: 10  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 10  Col: 19 
-INTEGER_LITERAL            | 0                                                       | Line: 10  Col: 21 
-DELIM_SEMICOLON            | ;                                                       | Line: 10  Col: 22 
-STORAGE_HOLD               | hold                                                    | Line: 11  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 11  Col: 6  
-IDENTIFIER                 | counter                                                 | Line: 11  Col: 10 
-LEXICAL_ERROR              | Unterminated string                                     | Line: 12  Col: 17 
-COMMENT                    | # Identifiers cannot contain digits anywhere.           | Line: 13  Col: 1  
+DATA_TYPE_TEXT             | text                                                    | Line: 6   Col: 6  
+IDENTIFIER                 | name                                                    | Line: 6   Col: 11 
+DELIM_SEMICOLON            | ;                                                       | Line: 6   Col: 15 
+KEYWORD_GRAB               | grab                                                    | Line: 7   Col: 1  
+IDENTIFIER                 | name                                                    | Line: 7   Col: 6  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 7   Col: 11 
+KEYWORD_PROMPT             | prompt                                                  | Line: 7   Col: 13 
+DELIM_LPAREN               | (                                                       | Line: 7   Col: 19 
+STRING_LITERAL             | Enter student name:                                     | Line: 7   Col: 20 
+DELIM_RPAREN               | )                                                       | Line: 7   Col: 42 
+DELIM_SEMICOLON            | ;                                                       | Line: 7   Col: 43 
+STORAGE_HOLD               | hold                                                    | Line: 9   Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 9   Col: 6  
+IDENTIFIER                 | age                                                     | Line: 9   Col: 10 
+DELIM_SEMICOLON            | ;                                                       | Line: 9   Col: 13 
+KEYWORD_GRAB               | grab                                                    | Line: 10  Col: 1  
+IDENTIFIER                 | age                                                     | Line: 10  Col: 6  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 10  Col: 10 
+KEYWORD_PROMPT             | prompt                                                  | Line: 10  Col: 12 
+DELIM_LPAREN               | (                                                       | Line: 10  Col: 18 
+STRING_LITERAL             | Enter student age:                                      | Line: 10  Col: 19 
+DELIM_RPAREN               | )                                                       | Line: 10  Col: 40 
+DELIM_SEMICOLON            | ;                                                       | Line: 10  Col: 41 
+STORAGE_HOLD               | hold                                                    | Line: 12  Col: 1  
+DATA_TYPE_DEC              | dec                                                     | Line: 12  Col: 6  
+IDENTIFIER                 | gpa                                                     | Line: 12  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 12  Col: 14 
+DECIMAL_LITERAL            | 1.25                                                    | Line: 12  Col: 16 
+DELIM_SEMICOLON            | ;                                                       | Line: 12  Col: 20 
+STORAGE_HOLD               | hold                                                    | Line: 13  Col: 1  
+STORAGE_FIXED              | fixed                                                   | Line: 13  Col: 6  
+IDENTIFIER                 | degree_program                                          | Line: 13  Col: 12 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 13  Col: 27 
+STRING_LITERAL             | BSCS                                                    | Line: 13  Col: 29 
+DELIM_SEMICOLON            | ;                                                       | Line: 13  Col: 35 
 STORAGE_HOLD               | hold                                                    | Line: 14  Col: 1  
-DATA_TYPE_DEC              | dec                                                     | Line: 14  Col: 6  
-LEXICAL_ERROR              | box1                                                    | Line: 14  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 14  Col: 15 
-DECIMAL_LITERAL            | 15.5                                                    | Line: 14  Col: 17 
-DELIM_SEMICOLON            | ;                                                       | Line: 14  Col: 21 
-COMMENT                    | # Rule: Identifiers cannot put unauthorized symbols or  | Line: 16  Col: 1  
-                           | hyphens.                                                |
-STORAGE_HOLD               | hold                                                    | Line: 17  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 17  Col: 6  
-LEXICAL_ERROR              | total@count                                             | Line: 17  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 17  Col: 23 
-STRING_LITERAL             | 5000000                                                 | Line: 17  Col: 25 
-DELIM_SEMICOLON            | ;                                                       | Line: 17  Col: 34 
+DATA_TYPE_TEXT             | text                                                    | Line: 14  Col: 6  
+IDENTIFIER                 | homeCity                                                | Line: 14  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 14  Col: 20 
+STRING_LITERAL             | Manila City                                             | Line: 14  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 14  Col: 35 
+STORAGE_HOLD               | hold                                                    | Line: 15  Col: 1  
+DATA_TYPE_TEXT             | text                                                    | Line: 15  Col: 6  
+IDENTIFIER                 | college_Year                                            | Line: 15  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 15  Col: 24 
+STRING_LITERAL             | Sophomore                                               | Line: 15  Col: 26 
+DELIM_SEMICOLON            | ;                                                       | Line: 15  Col: 37 
+COMMENT                    | # 2. Delimiters, Brackets, and Stash Arrays             | Line: 17  Col: 1  
 STORAGE_HOLD               | hold                                                    | Line: 18  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 18  Col: 6  
-IDENTIFIER                 | total                                                   | Line: 18  Col: 11 
-OPERATOR_MINUS             | -                                                       | Line: 18  Col: 16 
-IDENTIFIER                 | count                                                   | Line: 18  Col: 17 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 18  Col: 23 
-STRING_LITERAL             | hyphenated                                              | Line: 18  Col: 25 
-DELIM_SEMICOLON            | ;                                                       | Line: 18  Col: 37 
-COMMENT                    | # Rule: Whitespace cannot split an identifier.          | Line: 20  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 21  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 21  Col: 6  
-IDENTIFIER                 | box                                                     | Line: 21  Col: 10 
-IDENTIFIER                 | score                                                   | Line: 21  Col: 14 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 21  Col: 20 
-INTEGER_LITERAL            | 50                                                      | Line: 21  Col: 22 
-DELIM_SEMICOLON            | ;                                                       | Line: 21  Col: 24 
-COMMENT                    | # no trailing decimal digits                            | Line: 23  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 24  Col: 1  
-DATA_TYPE_DEC              | dec                                                     | Line: 24  Col: 6  
-IDENTIFIER                 | avg_score                                               | Line: 24  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 24  Col: 20 
-LEXICAL_ERROR              | 45.                                                     | Line: 24  Col: 22 
-DELIM_SEMICOLON            | ;                                                       | Line: 24  Col: 25 
-COMMENT                    | # 2. Unauthorized Symbols & Foreign Characters          | Line: 26  Col: 1  
-COMMENT                    | # Traps characters outside the MotionLang operational   | Line: 27  Col: 1  
-                           | and delimiter alphabet.                                 |
+DATA_TYPE_STASH            | stash                                                   | Line: 18  Col: 6  
+DATA_TYPE_NUM              | num                                                     | Line: 18  Col: 12 
+IDENTIFIER                 | scores                                                  | Line: 18  Col: 16 
+DELIM_LBRACKET             | [                                                       | Line: 18  Col: 22 
+INTEGER_LITERAL            | 3                                                       | Line: 18  Col: 23 
+DELIM_RBRACKET             | ]                                                       | Line: 18  Col: 24 
+DELIM_SEMICOLON            | ;                                                       | Line: 18  Col: 25 
+KEYWORD_GRAB               | grab                                                    | Line: 19  Col: 1  
+IDENTIFIER                 | scores                                                  | Line: 19  Col: 6  
+DELIM_LBRACKET             | [                                                       | Line: 19  Col: 12 
+INTEGER_LITERAL            | 0                                                       | Line: 19  Col: 13 
+DELIM_RBRACKET             | ]                                                       | Line: 19  Col: 14 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 19  Col: 16 
+INTEGER_LITERAL            | 88                                                      | Line: 19  Col: 18 
+DELIM_SEMICOLON            | ;                                                       | Line: 19  Col: 20 
+KEYWORD_GRAB               | grab                                                    | Line: 20  Col: 1  
+IDENTIFIER                 | scores                                                  | Line: 20  Col: 6  
+DELIM_LBRACKET             | [                                                       | Line: 20  Col: 12 
+INTEGER_LITERAL            | 1                                                       | Line: 20  Col: 13 
+DELIM_RBRACKET             | ]                                                       | Line: 20  Col: 14 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 20  Col: 16 
+INTEGER_LITERAL            | 92                                                      | Line: 20  Col: 18 
+DELIM_SEMICOLON            | ;                                                       | Line: 20  Col: 20 
+KEYWORD_GRAB               | grab                                                    | Line: 21  Col: 1  
+IDENTIFIER                 | scores                                                  | Line: 21  Col: 6  
+DELIM_LBRACKET             | [                                                       | Line: 21  Col: 12 
+INTEGER_LITERAL            | 2                                                       | Line: 21  Col: 13 
+DELIM_RBRACKET             | ]                                                       | Line: 21  Col: 14 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 21  Col: 16 
+INTEGER_LITERAL            | 95                                                      | Line: 21  Col: 18 
+DELIM_SEMICOLON            | ;                                                       | Line: 21  Col: 20 
+COMMENT                    | # 3. Arithmetic Operations: +, -, *, /, %, div, ^       | Line: 23  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 25  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 25  Col: 6  
+IDENTIFIER                 | sum                                                     | Line: 25  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 25  Col: 14 
+INTEGER_LITERAL            | 10                                                      | Line: 25  Col: 16 
+OPERATOR_PLUS              | +                                                       | Line: 25  Col: 19 
+INTEGER_LITERAL            | 5                                                       | Line: 25  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 25  Col: 22 
+STORAGE_HOLD               | hold                                                    | Line: 26  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 26  Col: 6  
+IDENTIFIER                 | diff                                                    | Line: 26  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 26  Col: 15 
+INTEGER_LITERAL            | 20                                                      | Line: 26  Col: 17 
+OPERATOR_MINUS             | -                                                       | Line: 26  Col: 20 
+INTEGER_LITERAL            | 4                                                       | Line: 26  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 26  Col: 23 
+STORAGE_HOLD               | hold                                                    | Line: 27  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 27  Col: 6  
+IDENTIFIER                 | product                                                 | Line: 27  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 27  Col: 18 
+INTEGER_LITERAL            | 6                                                       | Line: 27  Col: 20 
+OPERATOR_MULTIPLY          | *                                                       | Line: 27  Col: 22 
+INTEGER_LITERAL            | 7                                                       | Line: 27  Col: 24 
+DELIM_SEMICOLON            | ;                                                       | Line: 27  Col: 25 
 STORAGE_HOLD               | hold                                                    | Line: 28  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 28  Col: 6  
-IDENTIFIER                 | money                                                   | Line: 28  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 28  Col: 17 
-LEXICAL_ERROR              | 500$                                                    | Line: 28  Col: 19 
-DELIM_SEMICOLON            | ;                                                       | Line: 28  Col: 23 
+DATA_TYPE_DEC              | dec                                                     | Line: 28  Col: 6  
+IDENTIFIER                 | quotient                                                | Line: 28  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 28  Col: 19 
+DECIMAL_LITERAL            | 15.0                                                    | Line: 28  Col: 21 
+OPERATOR_DIVIDE            | /                                                       | Line: 28  Col: 26 
+DECIMAL_LITERAL            | 2.0                                                     | Line: 28  Col: 28 
+DELIM_SEMICOLON            | ;                                                       | Line: 28  Col: 31 
 STORAGE_HOLD               | hold                                                    | Line: 29  Col: 1  
 DATA_TYPE_NUM              | num                                                     | Line: 29  Col: 6  
-IDENTIFIER                 | bit_flag                                                | Line: 29  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 29  Col: 19 
-INTEGER_LITERAL            | 10                                                      | Line: 29  Col: 21 
-LEXICAL_ERROR              | &                                                       | Line: 29  Col: 24 
-INTEGER_LITERAL            | 20                                                      | Line: 29  Col: 26 
+IDENTIFIER                 | remainder                                               | Line: 29  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 29  Col: 20 
+INTEGER_LITERAL            | 17                                                      | Line: 29  Col: 22 
+OPERATOR_MODULO            | %                                                       | Line: 29  Col: 25 
+INTEGER_LITERAL            | 5                                                       | Line: 29  Col: 27 
 DELIM_SEMICOLON            | ;                                                       | Line: 29  Col: 28 
 STORAGE_HOLD               | hold                                                    | Line: 30  Col: 1  
 DATA_TYPE_NUM              | num                                                     | Line: 30  Col: 6  
-IDENTIFIER                 | score                                                   | Line: 30  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 30  Col: 16 
-INTEGER_LITERAL            | 100                                                     | Line: 30  Col: 18 
-LEXICAL_ERROR              | \                                                       | Line: 30  Col: 22 
-INTEGER_LITERAL            | 2                                                       | Line: 30  Col: 24 
-DELIM_SEMICOLON            | ;                                                       | Line: 30  Col: 25 
-COMMENT                    | # 3. Malformed Numeric & Decimal Literals               | Line: 32  Col: 1  
-COMMENT                    | # Multiple consecutive decimal points                   | Line: 33  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 34  Col: 1  
-DATA_TYPE_DEC              | dec                                                     | Line: 34  Col: 6  
-IDENTIFIER                 | broken_decimal                                          | Line: 34  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 34  Col: 25 
-LEXICAL_ERROR              | 12.34.56                                                | Line: 34  Col: 27 
-DELIM_SEMICOLON            | ;                                                       | Line: 34  Col: 35 
-COMMENT                    | # 4. Unterminated Literals & Boundary Violations        | Line: 36  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 37  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 37  Col: 6  
-IDENTIFIER                 | open_string                                             | Line: 37  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 37  Col: 23 
-LEXICAL_ERROR              | Unterminated string                                     | Line: 38  Col: 25 
-COMMENT                    | # Empty character                                       | Line: 39  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 40  Col: 1  
-DATA_TYPE_CHAR             | char                                                    | Line: 40  Col: 6  
-IDENTIFIER                 | no_char                                                 | Line: 40  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 40  Col: 19 
-LEXICAL_ERROR              | Empty character literal                                 | Line: 40  Col: 21 
-DELIM_SEMICOLON            | ;                                                       | Line: 40  Col: 23 
-COMMENT                    | # Multi-character literal inside single quotes          | Line: 42  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 43  Col: 1  
-DATA_TYPE_CHAR             | char                                                    | Line: 43  Col: 6  
-IDENTIFIER                 | multi_char                                              | Line: 43  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 43  Col: 22 
-LEXICAL_ERROR              | Multi-character literal                                 | Line: 43  Col: 24 
-DELIM_SEMICOLON            | ;                                                       | Line: 43  Col: 29 
-COMMENT                    | # Unterminated character using single quote             | Line: 45  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 46  Col: 1  
-DATA_TYPE_CHAR             | char                                                    | Line: 46  Col: 6  
-IDENTIFIER                 | open_char                                               | Line: 46  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 46  Col: 21 
-LEXICAL_ERROR              | Unterminated string                                     | Line: 47  Col: 23 
-COMMENT                    | # Unterminated char using double quote (NEW)            | Line: 48  Col: 1  
-COMMENT                    | # Unauthorized symbols within integers                  | Line: 50  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 51  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 51  Col: 6  
-IDENTIFIER                 | error_num                                               | Line: 51  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 51  Col: 20 
-LEXICAL_ERROR              | 123a45                                                  | Line: 51  Col: 22 
-DELIM_SEMICOLON            | ;                                                       | Line: 51  Col: 28 
-COMMENT                    | # 5. Malformed Operator Sequences                       | Line: 53  Col: 1  
-COMMENT                    | # Invalid compound assignment / relational sequences    | Line: 54  Col: 1  
+IDENTIFIER                 | quotient                                                | Line: 30  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 30  Col: 19 
+INTEGER_LITERAL            | 17                                                      | Line: 30  Col: 21 
+OPERATOR_DIV               | div                                                     | Line: 30  Col: 24 
+INTEGER_LITERAL            | 5                                                       | Line: 30  Col: 28 
+DELIM_SEMICOLON            | ;                                                       | Line: 30  Col: 29 
+STORAGE_HOLD               | hold                                                    | Line: 31  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 31  Col: 6  
+IDENTIFIER                 | power_value                                             | Line: 31  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 31  Col: 22 
+INTEGER_LITERAL            | 2                                                       | Line: 31  Col: 24 
+OPERATOR_EXPONENT          | ^                                                       | Line: 31  Col: 26 
+INTEGER_LITERAL            | 3                                                       | Line: 31  Col: 28 
+DELIM_SEMICOLON            | ;                                                       | Line: 31  Col: 29 
+COMMENT                    | # 4. Relational & Boolean Word Operators: ==, !=, <,    | Line: 33  Col: 1  
+                           | >, <=, >=, AND, OR, NOT                                 |
+KEYWORD_IF                 | if                                                      | Line: 35  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 35  Col: 4  
+DELIM_LPAREN               | (                                                       | Line: 35  Col: 5  
+IDENTIFIER                 | age                                                     | Line: 35  Col: 6  
+RELATIONAL_GREATEREQUAL    | >=                                                      | Line: 35  Col: 10 
+INTEGER_LITERAL            | 18                                                      | Line: 35  Col: 13 
+DELIM_RPAREN               | )                                                       | Line: 35  Col: 15 
+LOGICAL_AND                | AND                                                     | Line: 35  Col: 17 
+LEXICAL_ERROR              | NOT                                                     | Line: 35  Col: 21 
+DELIM_LPAREN               | (                                                       | Line: 35  Col: 25 
+IDENTIFIER                 | gpa                                                     | Line: 35  Col: 26 
+RELATIONAL_GREATER         | >                                                       | Line: 35  Col: 30 
+DECIMAL_LITERAL            | 3.00                                                    | Line: 35  Col: 32 
+DELIM_RPAREN               | )                                                       | Line: 35  Col: 36 
+DELIM_RPAREN               | )                                                       | Line: 35  Col: 37 
+DELIM_LBRACE               | {                                                       | Line: 35  Col: 39 
+KEYWORD_EMIT               | emit                                                    | Line: 36  Col: 5  
+STRING_LITERAL             | Status: Qualified Regular Adult Student                 | Line: 36  Col: 10 
+DELIM_SEMICOLON            | ;                                                       | Line: 36  Col: 51 
+DELIM_RBRACE               | }                                                       | Line: 37  Col: 1  
+UNKNOWN_TOKEN              | else if                                                 | Line: 38  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 38  Col: 9  
+DELIM_LPAREN               | (                                                       | Line: 38  Col: 10 
+IDENTIFIER                 | age                                                     | Line: 38  Col: 11 
+RELATIONAL_LESS            | <                                                       | Line: 38  Col: 15 
+INTEGER_LITERAL            | 18                                                      | Line: 38  Col: 17 
+DELIM_RPAREN               | )                                                       | Line: 38  Col: 19 
+LOGICAL_OR                 | OR                                                      | Line: 38  Col: 21 
+DELIM_LPAREN               | (                                                       | Line: 38  Col: 24 
+IDENTIFIER                 | gpa                                                     | Line: 38  Col: 25 
+RELATIONAL_EQUAL           | ==                                                      | Line: 38  Col: 29 
+DECIMAL_LITERAL            | 1.00                                                    | Line: 38  Col: 32 
+DELIM_RPAREN               | )                                                       | Line: 38  Col: 36 
+DELIM_RPAREN               | )                                                       | Line: 38  Col: 37 
+DELIM_LBRACE               | {                                                       | Line: 38  Col: 39 
+KEYWORD_EMIT               | emit                                                    | Line: 39  Col: 5  
+STRING_LITERAL             | Status: Evaluation Needed                               | Line: 39  Col: 10 
+DELIM_SEMICOLON            | ;                                                       | Line: 39  Col: 37 
+DELIM_RBRACE               | }                                                       | Line: 40  Col: 1  
+KEYWORD_ELSE               | else                                                    | Line: 41  Col: 1  
+KEYWORD_EMIT               | emit                                                    | Line: 42  Col: 5  
+STRING_LITERAL             | Status: Standard Review                                 | Line: 42  Col: 10 
+DELIM_SEMICOLON            | ;                                                       | Line: 42  Col: 35 
+DELIM_RBRACE               | }                                                       | Line: 43  Col: 1  
+KEYWORD_IF                 | if                                                      | Line: 45  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 45  Col: 4  
+IDENTIFIER                 | sum                                                     | Line: 45  Col: 5  
+RELATIONAL_NOTEQUAL        | !=                                                      | Line: 45  Col: 9  
+INTEGER_LITERAL            | 0                                                       | Line: 45  Col: 12 
+DELIM_RPAREN               | )                                                       | Line: 45  Col: 13 
+DELIM_LBRACE               | {                                                       | Line: 45  Col: 15 
+KEYWORD_EMIT               | emit                                                    | Line: 46  Col: 5  
+STRING_LITERAL             | The sum is not zero!                                    | Line: 46  Col: 10 
+DELIM_SEMICOLON            | ;                                                       | Line: 46  Col: 32 
+DELIM_RBRACE               | }                                                       | Line: 47  Col: 1  
+KEYWORD_IF                 | if                                                      | Line: 49  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 49  Col: 4  
+IDENTIFIER                 | diff                                                    | Line: 49  Col: 5  
+RELATIONAL_LESSEQUAL       | <=                                                      | Line: 49  Col: 10 
+INTEGER_LITERAL            | 0                                                       | Line: 49  Col: 13 
+DELIM_RPAREN               | )                                                       | Line: 49  Col: 14 
+DELIM_LBRACE               | {                                                       | Line: 49  Col: 16 
+KEYWORD_EMIT               | emit                                                    | Line: 50  Col: 5  
+STRING_LITERAL             | Negative diff!                                          | Line: 50  Col: 10 
+DELIM_RBRACE               | }                                                       | Line: 51  Col: 1  
+COMMENT                    | # 5. Loop Keywords: spin, halt, skip                    | Line: 53  Col: 1  
 STORAGE_HOLD               | hold                                                    | Line: 55  Col: 1  
 DATA_TYPE_NUM              | num                                                     | Line: 55  Col: 6  
-IDENTIFIER                 | false_logic                                             | Line: 55  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 55  Col: 22 
-INTEGER_LITERAL            | 10                                                      | Line: 55  Col: 24 
-RELATIONAL_EQUAL           | ==                                                      | Line: 55  Col: 27 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 55  Col: 29 
-INTEGER_LITERAL            | 5                                                       | Line: 55  Col: 31 
-DELIM_SEMICOLON            | ;                                                       | Line: 55  Col: 32 
-COMMENT                    | # (first two is detected as relational_equal, then      | Line: 55  Col: 34 
-                           | third one is assignment equal)                          |
-STORAGE_HOLD               | hold                                                    | Line: 56  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 56  Col: 6  
-IDENTIFIER                 | bad_not                                                 | Line: 56  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 56  Col: 18 
-INTEGER_LITERAL            | 10                                                      | Line: 56  Col: 20 
-LOGICAL_NOT                | !                                                       | Line: 56  Col: 23 
-INTEGER_LITERAL            | 2                                                       | Line: 56  Col: 25 
-DELIM_SEMICOLON            | ;                                                       | Line: 56  Col: 26 
-COMMENT                    | # (detected as separates)                               | Line: 56  Col: 28 
-END_OF_FILE                | EOF                                                     | Line: 58  Col: 0  
+IDENTIFIER                 | counter                                                 | Line: 55  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 55  Col: 18 
+INTEGER_LITERAL            | 0                                                       | Line: 55  Col: 20 
+DELIM_SEMICOLON            | ;                                                       | Line: 55  Col: 21 
+KEYWORD_SPIN               | spin                                                    | Line: 56  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 56  Col: 6  
+IDENTIFIER                 | counter                                                 | Line: 56  Col: 7  
+RELATIONAL_LESS            | <                                                       | Line: 56  Col: 15 
+INTEGER_LITERAL            | 10                                                      | Line: 56  Col: 17 
+DELIM_RPAREN               | )                                                       | Line: 56  Col: 19 
+DELIM_LBRACE               | {                                                       | Line: 56  Col: 21 
+KEYWORD_GRAB               | grab                                                    | Line: 57  Col: 5  
+IDENTIFIER                 | counter                                                 | Line: 57  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 57  Col: 18 
+IDENTIFIER                 | counter                                                 | Line: 57  Col: 20 
+OPERATOR_PLUS              | +                                                       | Line: 57  Col: 28 
+INTEGER_LITERAL            | 1                                                       | Line: 57  Col: 30 
+DELIM_SEMICOLON            | ;                                                       | Line: 57  Col: 31 
+KEYWORD_IF                 | if                                                      | Line: 59  Col: 5  
+DELIM_LPAREN               | (                                                       | Line: 59  Col: 8  
+IDENTIFIER                 | counter                                                 | Line: 59  Col: 9  
+RELATIONAL_EQUAL           | ==                                                      | Line: 59  Col: 17 
+INTEGER_LITERAL            | 2                                                       | Line: 59  Col: 20 
+DELIM_RPAREN               | )                                                       | Line: 59  Col: 21 
+DELIM_LBRACE               | {                                                       | Line: 59  Col: 23 
+KEYWORD_SKIP               | skip                                                    | Line: 60  Col: 9  
+DELIM_SEMICOLON            | ;                                                       | Line: 60  Col: 13 
+DELIM_RBRACE               | }                                                       | Line: 61  Col: 5  
+KEYWORD_IF                 | if                                                      | Line: 63  Col: 5  
+DELIM_LPAREN               | (                                                       | Line: 63  Col: 8  
+IDENTIFIER                 | counter                                                 | Line: 63  Col: 9  
+RELATIONAL_EQUAL           | ==                                                      | Line: 63  Col: 17 
+INTEGER_LITERAL            | 8                                                       | Line: 63  Col: 20 
+DELIM_RPAREN               | )                                                       | Line: 63  Col: 21 
+DELIM_LBRACE               | {                                                       | Line: 63  Col: 23 
+KEYWORD_HALT               | halt                                                    | Line: 64  Col: 9  
+DELIM_SEMICOLON            | ;                                                       | Line: 64  Col: 13 
+DELIM_RBRACE               | }                                                       | Line: 65  Col: 5  
+DELIM_RBRACE               | }                                                       | Line: 66  Col: 1  
+COMMENT                    | # 6. Function Keywords: routine, return                 | Line: 68  Col: 1  
+KEYWORD_ROUTINE            | routine                                                 | Line: 69  Col: 1  
+IDENTIFIER                 | compute_bonus                                           | Line: 69  Col: 9  
+DELIM_LPAREN               | (                                                       | Line: 69  Col: 22 
+DATA_TYPE_NUM              | num                                                     | Line: 69  Col: 23 
+IDENTIFIER                 | base_val                                                | Line: 69  Col: 27 
+DELIM_COMMA                | ,                                                       | Line: 69  Col: 35 
+DATA_TYPE_DEC              | dec                                                     | Line: 69  Col: 37 
+IDENTIFIER                 | multiplier                                              | Line: 69  Col: 41 
+DELIM_RPAREN               | )                                                       | Line: 69  Col: 51 
+DELIM_LBRACE               | {                                                       | Line: 69  Col: 53 
+STORAGE_HOLD               | hold                                                    | Line: 70  Col: 5  
+DATA_TYPE_DEC              | dec                                                     | Line: 70  Col: 10 
+IDENTIFIER                 | adjusted_val                                            | Line: 70  Col: 14 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 70  Col: 27 
+IDENTIFIER                 | base_val                                                | Line: 70  Col: 29 
+OPERATOR_MULTIPLY          | *                                                       | Line: 70  Col: 38 
+IDENTIFIER                 | multiplier                                              | Line: 70  Col: 40 
+DELIM_SEMICOLON            | ;                                                       | Line: 70  Col: 50 
+KEYWORD_RETURN             | return                                                  | Line: 71  Col: 5  
+IDENTIFIER                 | adjusted_val                                            | Line: 71  Col: 12 
+DELIM_SEMICOLON            | ;                                                       | Line: 71  Col: 24 
+DELIM_RBRACE               | }                                                       | Line: 72  Col: 1  
+COMMENT                    | # Plain Assignment Statements Verification              | Line: 74  Col: 1  
+IDENTIFIER                 | gpa                                                     | Line: 75  Col: 1  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 75  Col: 5  
+DECIMAL_LITERAL            | 1.25                                                    | Line: 75  Col: 7  
+DELIM_SEMICOLON            | ;                                                       | Line: 75  Col: 11 
+IDENTIFIER                 | adjusted_val                                            | Line: 76  Col: 1  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 76  Col: 14 
+IDENTIFIER                 | base_val                                                | Line: 76  Col: 16 
+DELIM_SEMICOLON            | ;                                                       | Line: 76  Col: 24 
+IDENTIFIER                 | counter                                                 | Line: 77  Col: 1  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 77  Col: 9  
+IDENTIFIER                 | counter                                                 | Line: 77  Col: 11 
+OPERATOR_PLUS              | +                                                       | Line: 77  Col: 19 
+INTEGER_LITERAL            | 1                                                       | Line: 77  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 77  Col: 22 
+COMMENT                    | # 7. Free-Field Format Verification                     | Line: 79  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 80  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 80  Col: 8  
+IDENTIFIER                 | spaced_val                                              | Line: 80  Col: 15 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 81  Col: 28 
+INTEGER_LITERAL            | 100                                                     | Line: 82  Col: 5  
+OPERATOR_PLUS              | +                                                       | Line: 82  Col: 11 
+INTEGER_LITERAL            | 200                                                     | Line: 83  Col: 5  
+DELIM_SEMICOLON            | ;                                                       | Line: 83  Col: 11 
+END_OF_FILE                | EOF                                                     | Line: 86  Col: 0  
 ====================================================================================================================
