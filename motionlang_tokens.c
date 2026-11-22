@@ -108,10 +108,20 @@ TokenType lookupKeyword(const char* lexeme) {
             case 68: return TOKEN_IDENTIFIER;
 
             // DFA Branch 't' (text)
-            case 70: if (c == 'e') state = 71; else return TOKEN_IDENTIFIER; break;
+            case 70: 
+                  if (c == 'e') state = 71; 
+                  else if (c == 'i') state = 75; 
+                  else return TOKEN_IDENTIFIER;
+                 break;
+
             case 71: if (c == 'x') state = 72; else return TOKEN_IDENTIFIER; break;
             case 72: if (c == 't') state = 73; else return TOKEN_IDENTIFIER; break; // text
             case 73: return TOKEN_IDENTIFIER;
+
+            case 75: if (c == 'm') state = 76; else return TOKEN_IDENTIFIER; break;
+            case 76: if (c == 'e') state = 77; else return TOKEN_IDENTIFIER; break;
+            case 77: if (c == 's') state = 78; else return TOKEN_IDENTIFIER; break; // times (noise word)
+            case 78: return TOKEN_IDENTIFIER;
 
             // DFA Branch 'i' (if)
             case 80: if (c == 'f') state = 81; else return TOKEN_IDENTIFIER; break;
@@ -200,6 +210,7 @@ TokenType lookupKeyword(const char* lexeme) {
         case 63: return TOKEN_FLAG;
         case 68: return TOKEN_FIXED;
         case 73: return TOKEN_TEXT;
+        case 78: return TOKEN_NOISE;
         case 81: return TOKEN_IF;
         case 93: return TOKEN_ELSE;
         case 97: return TOKEN_EMIT;

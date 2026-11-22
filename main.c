@@ -24,6 +24,7 @@ const char* getTokenClassificationName(TokenType type) {
         // Condition and teration
         case TOKEN_IF:              return "KEYWORD_IF";
         case TOKEN_ELSE:            return "KEYWORD_ELSE";
+        case TOKEN_ELSE_IF:         return "KEYWORD_ELSE_IF";
         case TOKEN_SPIN:            return "KEYWORD_SPIN";
         case TOKEN_HALT:            return "KEYWORD_HALT";
         case TOKEN_SKIP:            return "KEYWORD_SKIP";
@@ -34,7 +35,6 @@ const char* getTokenClassificationName(TokenType type) {
         case TOKEN_PROMPT:          return "KEYWORD_PROMPT";
         case TOKEN_ROUTINE:         return "KEYWORD_ROUTINE";
         case TOKEN_RETURN:          return "KEYWORD_RETURN";
-
         // Word Operators
         case TOKEN_DIV_OP:          return "OPERATOR_DIV";
         case TOKEN_AND:             return "LOGICAL_AND";
@@ -47,6 +47,7 @@ const char* getTokenClassificationName(TokenType type) {
         case TOKEN_DECIMAL_LITERAL: return "DECIMAL_LITERAL";
         case TOKEN_STRING_LITERAL:  return "STRING_LITERAL";
         case TOKEN_CHAR_LITERAL:    return "CHAR_LITERAL";
+        case TOKEN_NOISE:           return "NOISE_WORD";
 
         // Arithmetic & Relational Symbols
         case TOKEN_PLUS:            return "OPERATOR_PLUS";

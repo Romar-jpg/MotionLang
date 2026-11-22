@@ -80,6 +80,7 @@ static Token try_merge_else_if(int start_col) {
     }
 
     return createToken(TOKEN_ELSE_IF, "else if", current_line, start_col);
+}
 /// Helper: Characters that legally terminate an identifier in MotionLang
 static bool is_identifier_boundary(int c) {
     if (c == EOF || isspace((unsigned char)c)) return true;
@@ -87,7 +88,7 @@ static bool is_identifier_boundary(int c) {
         // Delimiters, Brackets, Quotes, Comments
         case '(': case ')': case '[': case ']':
         case '{': case '}': case ',': case ';':
-        case '"': case '\'': case '#':
+        case '"': case '\'': case '#': 
         // Arithmetic & Relational Operators defined in getNextToken
         case '+': case '-': case '*': case '/': case '%': case '^':
         case '=': case '<': case '>': case '!':
@@ -131,13 +132,12 @@ Token handle_identifier(int first_char) {
         }
     }
     buffer[idx] = '\0';
-
     // Allow uppercase reserved keywords (like AND / OR) to reach Module 3's keyword check
     if (has_error && strcmp(buffer, "AND") != 0 && strcmp(buffer, "OR") != 0) {
         return createToken(TOKEN_UNKNOWN, buffer, current_line, start_col);
     }
 
-    // Module 3 internally checks if this buffer matches a reserved word
+   // Module 3 internally checks if this buffer matches a reserved word
     Token tok = createToken(TOKEN_IDENTIFIER, buffer, current_line, start_col);
     if (tok.type == TOKEN_ELSE) {
         freeToken(&tok);
@@ -153,7 +153,7 @@ static bool is_literals_boundary(int c) {
     switch (c) {
         case '(': case ')': case '[': case ']':
         case '{': case '}': case ',': case ';':
-        case '"': case '\'': case '#':
+        case '"': case '\'': case '#': 
         case '+': case '-': case '*': case '/': case '%': case '^':
         case '=': case '<': case '>': case '!':
             return true;
@@ -329,7 +329,6 @@ Token handle_comment(int is_multiline, int start_line, int start_col) {
     // Fallback return so GCC knows all control paths return a Token
     return createToken(TOKEN_UNKNOWN, "Invalid comment", start_line, start_col);
 }
-
 
 // =============================================================================================
 //    MODULE 2  - PART B: Main Switch loop, Operations Symbol, Blanks, Delimiters, Fallbacks

@@ -8,6 +8,9 @@ typedef enum {
     
     // Storage Constraints
     TOKEN_HOLD, TOKEN_FIXED,
+
+    // Noise word (NEW)
+    TOKEN_NOISE,
     
     // Conditionals & Iteration
     TOKEN_IF, TOKEN_ELSE, TOKEN_ELSE_IF, TOKEN_SPIN, TOKEN_HALT, TOKEN_SKIP,
@@ -33,6 +36,7 @@ typedef enum {
     TOKEN_LBRACKET, TOKEN_RBRACKET, // []
     TOKEN_LBRACE, TOKEN_RBRACE,     // {}
     TOKEN_COMMA, TOKEN_SEMICOLON,   // , ;
+    TOKEN_SINGLE_QUOTE, TOKEN_DOUBLE_QUOTE, // ' "
 
     // Comments
     TOKEN_COMMENT,
