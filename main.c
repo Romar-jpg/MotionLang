@@ -35,7 +35,6 @@ const char* getTokenClassificationName(TokenType type) {
         case TOKEN_PROMPT:          return "KEYWORD_PROMPT";
         case TOKEN_ROUTINE:         return "KEYWORD_ROUTINE";
         case TOKEN_RETURN:          return "KEYWORD_RETURN";
-
         // Word Operators
         case TOKEN_DIV_OP:          return "OPERATOR_DIV";
         case TOKEN_AND:             return "LOGICAL_AND";
