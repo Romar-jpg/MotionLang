@@ -43,6 +43,43 @@ extern Token createToken(TokenType type, const char* lexeme, int line, int colum
 // MODULE 2 - PART A: Identifiers, Keywords and Reserved Words, Literals, Comments
 // ============================================================================
 
+static Token try_merge_else_if(int start_col) {
+    int c1 = getNextChar();
+    if (c1 != ' ' && c1 != '\t') {
+        if (c1 != EOF) ungetChar(c1);
+        return createToken(TOKEN_ELSE, "else", current_line, start_col);
+    }
+
+    int c2 = getNextChar();
+    if (c2 != 'i') {
+        if (c2 != EOF) ungetChar(c2);
+        ungetChar(c1);
+        return createToken(TOKEN_ELSE, "else", current_line, start_col);
+    }
+
+    int c3 = getNextChar();
+    if (c3 != 'f') {
+        if (c3 != EOF) ungetChar(c3);
+        ungetChar(c2);
+        ungetChar(c1);
+        return createToken(TOKEN_ELSE, "else", current_line, start_col);
+    }
+
+    int c4 = getNextChar();
+    if (c4 != EOF && (isalnum((unsigned char)c4) || c4 == '_')) {
+        ungetChar(c4);
+        ungetChar(c3);
+        ungetChar(c2);
+        ungetChar(c1);
+        return createToken(TOKEN_ELSE, "else", current_line, start_col);
+    }
+    if (c4 != EOF) {
+        ungetChar(c4);
+    }
+
+    return createToken(TOKEN_ELSE_IF, "else if", current_line, start_col);
+}
+
 // 1. Identifiers (Module 3 automatically upgrades to keywords)
 Token handle_identifier(int first_char) {
     char buffer[100];
@@ -69,7 +106,12 @@ Token handle_identifier(int first_char) {
     buffer[idx] = '\0';
 
     // Module 3 internally checks if this buffer matches a reserved word
-    return createToken(TOKEN_IDENTIFIER, buffer, current_line, start_col);
+    Token tok = createToken(TOKEN_IDENTIFIER, buffer, current_line, start_col);
+    if (tok.type == TOKEN_ELSE) {
+        freeToken(&tok);
+        return try_merge_else_if(start_col);
+    }
+    return tok;
 }
 
 // 2. Number Literals (Integers & Decimals)
@@ -137,6 +179,20 @@ Token handle_string(int quote_char) {
         if (c == '\n') {
             return createToken(TOKEN_UNKNOWN, "Unterminated string", current_line, start_col);
         }
+        if (c == '\\') {
+            int escaped = getNextChar();
+            if (escaped == EOF) {
+                return createToken(TOKEN_EOF, "Unexpected EOF in string", current_line, start_col);
+            }
+            if (escaped == '\n') {
+                return createToken(TOKEN_UNKNOWN, "Unterminated string", current_line, start_col);
+            }
+            if (idx < (int)sizeof(buffer) - 2) {
+                buffer[idx++] = '\\';
+                buffer[idx++] = (char)escaped;
+            }
+            continue;
+        }
         if (idx < (int)sizeof(buffer) - 1) {
             buffer[idx++] = (char)c;
         }
@@ -147,6 +203,15 @@ Token handle_string(int quote_char) {
     }
 
     buffer[idx] = '\0';
+
+    if (quote_char == '\'') {
+        if (idx == 0) {
+            return createToken(TOKEN_UNKNOWN, "Empty character literal", current_line, start_col);
+        }
+        if (idx > 1 && !(idx == 2 && buffer[0] == '\\')) {
+            return createToken(TOKEN_UNKNOWN, "Multi-character literal", current_line, start_col);
+        }
+    }
     
     return createToken(TOKEN_STRING_LITERAL, buffer, current_line, start_col);
 }
@@ -253,7 +318,7 @@ int start_col = current_column;
         case '#':
             return handle_comment(0, current_line, start_col);
 
-        // Delimiters & Brackets[cite: 5, 6]
+        // Delimiters & Brackets
         case '(': 
             current_column++; 
             return createToken(TOKEN_LPAREN, "(", current_line, start_col);
@@ -326,7 +391,7 @@ int start_col = current_column;
                 current_column += 2;
                 return createToken(TOKEN_EQUAL, "==", current_line, start_col);
             }
-            ungetChar(next);
+            if (next != EOF) ungetChar(next);
             current_column++;
             return createToken(TOKEN_ASSIGN, "=", current_line, start_col);
         }
@@ -336,7 +401,7 @@ int start_col = current_column;
                 current_column += 2;
                 return createToken(TOKEN_LESS_EQUAL, "<=", current_line, start_col);
             }
-            ungetChar(next);
+            if (next != EOF) ungetChar(next);
             current_column++;
             return createToken(TOKEN_LESS, "<", current_line, start_col);
         }
@@ -346,7 +411,7 @@ int start_col = current_column;
                 current_column += 2;
                 return createToken(TOKEN_GREATER_EQUAL, ">=", current_line, start_col);
             }
-            ungetChar(next);
+            if (next != EOF) ungetChar(next);
             current_column++;
             return createToken(TOKEN_GREATER, ">", current_line, start_col);
         }
@@ -356,7 +421,7 @@ int start_col = current_column;
                 current_column += 2;
                 return createToken(TOKEN_NOT_EQUAL, "!=", current_line, start_col);
             }
-            ungetChar(next);
+            if (next != EOF) ungetChar(next);
             current_column++;
             return createToken(TOKEN_NOT, "!", current_line, start_col);
         }
