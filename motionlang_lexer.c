@@ -330,7 +330,6 @@ Token handle_comment(int is_multiline, int start_line, int start_col) {
     return createToken(TOKEN_UNKNOWN, "Invalid comment", start_line, start_col);
 }
 
-
 // =============================================================================================
 //    MODULE 2  - PART B: Main Switch loop, Operations Symbol, Blanks, Delimiters, Fallbacks
 // =============================================================================================

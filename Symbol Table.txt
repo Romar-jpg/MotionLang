@@ -165,7 +165,7 @@ KEYWORD_EMIT               | emit                                               
 STRING_LITERAL             | Status: Qualified Regular Adult Student                 | Line: 36  Col: 10 
 DELIM_SEMICOLON            | ;                                                       | Line: 36  Col: 51 
 DELIM_RBRACE               | }                                                       | Line: 37  Col: 1  
-UNKNOWN_TOKEN              | else if                                                 | Line: 38  Col: 1  
+KEYWORD_ELSE_IF            | else if                                                 | Line: 38  Col: 1  
 DELIM_LPAREN               | (                                                       | Line: 38  Col: 9  
 DELIM_LPAREN               | (                                                       | Line: 38  Col: 10 
 IDENTIFIER                 | age                                                     | Line: 38  Col: 11 
@@ -222,8 +222,9 @@ DELIM_LPAREN               | (                                                  
 IDENTIFIER                 | counter                                                 | Line: 56  Col: 7  
 RELATIONAL_LESS            | <                                                       | Line: 56  Col: 15 
 INTEGER_LITERAL            | 10                                                      | Line: 56  Col: 17 
-DELIM_RPAREN               | )                                                       | Line: 56  Col: 19 
-DELIM_LBRACE               | {                                                       | Line: 56  Col: 21 
+NOISE_WORD                 | times                                                   | Line: 56  Col: 20 
+DELIM_RPAREN               | )                                                       | Line: 56  Col: 25 
+DELIM_LBRACE               | {                                                       | Line: 56  Col: 27 
 KEYWORD_GRAB               | grab                                                    | Line: 57  Col: 5  
 IDENTIFIER                 | counter                                                 | Line: 57  Col: 10 
 ASSIGNMENT_OPERATOR        | =                                                       | Line: 57  Col: 18 
