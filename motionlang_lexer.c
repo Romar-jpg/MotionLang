@@ -274,6 +274,7 @@ Token handle_string(int quote_char) {
         if (idx > 1 && !(idx == 2 && buffer[0] == '\\')) {
             return createToken(TOKEN_UNKNOWN, "Multi-character literal", current_line, start_col);
         }
+        return createToken(TOKEN_CHAR_LITERAL, buffer, current_line, start_col);
     }
     
     return createToken(TOKEN_STRING_LITERAL, buffer, current_line, start_col);
