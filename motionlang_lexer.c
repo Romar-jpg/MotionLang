@@ -14,6 +14,16 @@ SourceStream *lexer_stream = NULL; // The global stream pointer
 int current_line = 1;    
 int current_column = 0; 
 
+static Token pending_tokens[2];
+static int pending_count = 0;
+static int pending_index = 0;
+
+static void queue_token(Token tok) {
+    if (pending_count < 2) {
+        pending_tokens[pending_count++] = tok;
+    }
+}
+
 // Wrapper to fetch char and sync coordinates from Module 1
 int getNextChar(void) {
     if (!lexer_stream) return EOF;
@@ -40,7 +50,7 @@ void ungetChar(int c) {
 // MODULE 3 IMPORTS (Token Structs & Keyword Registry)
 // ============================================================================
 extern Token createToken(TokenType type, const char* lexeme, int line, int column);
-
+extern void freeToken(Token* token);
 // ============================================================================
 // MODULE 2 - PART A: Identifiers, Keywords and Reserved Words, Literals, Comments
 // ============================================================================
@@ -55,24 +65,18 @@ static Token try_merge_else_if(int start_col) {
     int c2 = getNextChar();
     if (c2 != 'i') {
         if (c2 != EOF) ungetChar(c2);
-        ungetChar(c1);
         return createToken(TOKEN_ELSE, "else", current_line, start_col);
     }
 
     int c3 = getNextChar();
     if (c3 != 'f') {
         if (c3 != EOF) ungetChar(c3);
-        ungetChar(c2);
-        ungetChar(c1);
         return createToken(TOKEN_ELSE, "else", current_line, start_col);
     }
 
     int c4 = getNextChar();
     if (c4 != EOF && (isalnum((unsigned char)c4) || c4 == '_')) {
         ungetChar(c4);
-        ungetChar(c3);
-        ungetChar(c2);
-        ungetChar(c1);
         return createToken(TOKEN_ELSE, "else", current_line, start_col);
     }
     if (c4 != EOF) {
@@ -133,10 +137,14 @@ Token handle_identifier(int first_char) {
     }
     buffer[idx] = '\0';
     // Allow uppercase reserved keywords (like AND / OR) to reach Module 3's keyword check
-    if (has_error && strcmp(buffer, "AND") != 0 && strcmp(buffer, "OR") != 0) {
+   bool is_upper_kw =
+        (buffer[0] == 'A' && buffer[1] == 'N' && buffer[2] == 'D' && buffer[3] == '\0') ||
+        (buffer[0] == 'O' && buffer[1] == 'R' && buffer[2] == '\0') ||
+        (buffer[0] == 'N' && buffer[1] == 'O' && buffer[2] == 'T' && buffer[3] == '\0');
+
+    if (has_error && !is_upper_kw) {
         return createToken(TOKEN_UNKNOWN, buffer, current_line, start_col);
     }
-
    // Module 3 internally checks if this buffer matches a reserved word
     Token tok = createToken(TOKEN_IDENTIFIER, buffer, current_line, start_col);
     if (tok.type == TOKEN_ELSE) {
@@ -236,19 +244,27 @@ Token handle_string(int quote_char) {
     char buffer[100];
     int idx = 0;
     int start_col = current_column;
+    int start_line = current_line;
+    int content_col = start_col + 1; // Content starts after the opening quote
     int c;
+
+    TokenType quote_type = (quote_char == '\'') ? TOKEN_SINGLE_QUOTE : TOKEN_DOUBLE_QUOTE;
+    const char *quote_lexeme = (quote_char == '\'') ? "'" : "\"";
 
     while ((c = getNextChar()) != EOF && c != quote_char) {
         if (c == '\n') {
-            return createToken(TOKEN_UNKNOWN, "Unterminated string", current_line, start_col);
+            queue_token(createToken(TOKEN_UNKNOWN, "Unterminated string", start_line, content_col));
+            return createToken(quote_type, quote_lexeme, start_line, start_col);
         }
         if (c == '\\') {
             int escaped = getNextChar();
             if (escaped == EOF) {
-                return createToken(TOKEN_EOF, "Unexpected EOF in string", current_line, start_col);
+               queue_token(createToken(TOKEN_EOF, "Unexpected EOF in string", start_line, content_col));
+                return createToken(quote_type, quote_lexeme, start_line, start_col);
             }
             if (escaped == '\n') {
-                return createToken(TOKEN_UNKNOWN, "Unterminated string", current_line, start_col);
+                queue_token(createToken(TOKEN_UNKNOWN, "Unterminated string", start_line, content_col));
+                return createToken(quote_type, quote_lexeme, start_line, start_col);
             }
             if (idx < (int)sizeof(buffer) - 2) {
                 buffer[idx++] = '\\';
@@ -262,22 +278,27 @@ Token handle_string(int quote_char) {
     }
 
     if (c == EOF) {
-        return createToken(TOKEN_EOF, "Unexpected EOF in string", current_line, start_col);
+       queue_token(createToken(TOKEN_UNKNOWN, "Unterminated string", start_line, content_col));
+       return createToken(quote_type, quote_lexeme, start_line, start_col);
     }
 
+    int closing_col = current_column;
     buffer[idx] = '\0';
 
     if (quote_char == '\'') {
         if (idx == 0) {
-            return createToken(TOKEN_UNKNOWN, "Empty character literal", current_line, start_col);
+            queue_token(createToken(TOKEN_UNKNOWN, "Empty character literal", start_line, content_col));
         }
-        if (idx > 1 && !(idx == 2 && buffer[0] == '\\')) {
-            return createToken(TOKEN_UNKNOWN, "Multi-character literal", current_line, start_col);
+         else if (idx > 1 && !(idx == 2 && buffer[0] == '\\')) {
+            queue_token(createToken(TOKEN_UNKNOWN, "Multi-character literal", start_line, content_col));
         }
-        return createToken(TOKEN_CHAR_LITERAL, buffer, current_line, start_col);
+        else queue_token(createToken(TOKEN_CHAR_LITERAL, buffer, start_line, content_col));
     }
-    
-    return createToken(TOKEN_STRING_LITERAL, buffer, current_line, start_col);
+    else {
+        queue_token(createToken(TOKEN_STRING_LITERAL, buffer, start_line, content_col));
+    }
+    queue_token(createToken(quote_type, quote_lexeme, start_line, closing_col));
+    return createToken(quote_type, quote_lexeme, start_line, start_col);
 }
 
 // 4. Comments (# single-line and [# ... #] multi-line)
@@ -336,6 +357,16 @@ Token handle_comment(int is_multiline, int start_line, int start_col) {
 // =============================================================================================
 
 Token getNextToken(void) {
+
+    if (pending_index < pending_count) {
+        Token next_tok = pending_tokens[pending_index++];
+        if (pending_index >= pending_count) {
+            pending_count = 0;
+            pending_index = 0;
+        }
+        return next_tok;
+    }
+
     int c = getNextChar();
 
     if (c == EOF) {

@@ -73,6 +73,8 @@ const char* getTokenClassificationName(TokenType type) {
         case TOKEN_RBRACE:          return "DELIM_RBRACE";
         case TOKEN_COMMA:           return "DELIM_COMMA";
         case TOKEN_SEMICOLON:       return "DELIM_SEMICOLON";
+        case TOKEN_SINGLE_QUOTE:    return "DELIM_SINGLE_QUOTE";
+        case TOKEN_DOUBLE_QUOTE:    return "DELIM_DOUBLE_QUOTE";
 
         // Comments
         case TOKEN_COMMENT:         return "COMMENT";
