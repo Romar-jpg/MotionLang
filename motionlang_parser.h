@@ -48,6 +48,8 @@ void parse_if_stmt(Parser *parser);
 void parse_loop_stmt(Parser *parser);
 void parse_flow_stmt(Parser *parser);
 void parse_routine_decl(Parser *parser);
+void accept_noise(Parser *parser, const char *word);
+void noise_misplaced(Parser *parser);
 
 // ============================================================================
 // 3. EXPRESSION MODULES 
