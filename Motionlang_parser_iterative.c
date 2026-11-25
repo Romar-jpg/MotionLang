@@ -1,5 +1,4 @@
 #include "motionlang_parser.h"
-
 /*
  * ITERATIVE STATEMENTS  (Spin)
  *
@@ -55,18 +54,18 @@ static void skip_control_block(Parser *parser, int stop_at_semicolon) {
 }
 
 void parse_loop_stmt(Parser *parser) {
-    // 1. "Spin"
-    if (!consume(parser, TOKEN_SPIN, "Expected 'Spin'.")) {
+    // 1. "spin"
+    if (!consume(parser, TOKEN_SPIN, "Expected 'spin'.")) {
         recover(parser);
         return;
     }
 
+    int has_paren = match(parser, TOKEN_LPAREN);
+
     if (check(parser, TOKEN_IDENTIFIER) &&
         peek_next(parser).type == TOKEN_ASSIGN) {
 
-        // ---- for-style ----
-
-        // init: parse_assign_stmt recovers by itself on error
+        // === RESTORED: for-style header ===
         int errors_before = parser->error_count;
         parse_assign_stmt(parser);
         if (parser->panic_mode || parser->error_count > errors_before) {
@@ -83,7 +82,7 @@ void parse_loop_stmt(Parser *parser) {
             return;
         }
 
-        // step:  IDENTIFIER = <expr>   (no ';')
+        // step: IDENTIFIER = <expr> (no ';')
         if (!consume(parser, TOKEN_IDENTIFIER, "Expected an assignment as the loop step.") ||
             !consume(parser, TOKEN_ASSIGN,     "Expected '=' in the loop step.")) {
             skip_control_block(parser, 0);
@@ -91,23 +90,34 @@ void parse_loop_stmt(Parser *parser) {
         }
         parse_expr(parser);
         if (parser->panic_mode) { skip_control_block(parser, 0); return; }
+        // ==================================
 
     } else {
-        // ---- while-style ----
-        parse_expr(parser);                   // condition
+        // === RESTORED: while-style header ===
+        parse_expr(parser);                   // parses 'counter < 10'
         if (parser->panic_mode) { skip_control_block(parser, 1); return; }
+        // ====================================
     }
 
-    accept_noise(parser, "do");               // optional noise word
+    accept_noise(parser, "times");
 
-    if (check(parser, TOKEN_NOISE)) {         // wrong noise word, e.g. "then"
+    if (has_paren) {
+        if (!consume(parser, TOKEN_RPAREN, "Expected ')' after loop header.")) {
+            skip_control_block(parser, 1);
+            return;
+        }
+        accept_noise(parser, "times");        // also allow 'times' after ')' if written that way
+    }
+    // =============================================================================
+
+    if (check(parser, TOKEN_NOISE)) {         // wrong noise word, e.g. "then" or "do"
         noise_misplaced(parser);
         skip_control_block(parser, 0);
         return;
     }
 
     parse_block(parser);                      // body { ... }
-    if (parser->panic_mode) recover(parser);  // only if block didn't already
+    if (parser->panic_mode) recover(parser);
 }
 
 void parse_flow_stmt(Parser *parser) {
