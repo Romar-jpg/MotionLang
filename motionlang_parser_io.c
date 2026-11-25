@@ -36,18 +36,6 @@ void parse_input_stmt(Parser *parser) {
         recover(parser);
         return;
     }
-
-    // Expect and consume the opening parenthesis '[' (TOKEN_LPAREN)
-    if (!consume(parser, TOKEN_LBRACKET, "Expected '[' after 'prompt'.")) {
-        recover(parser);
-        return;
-    }
-
-    // Expect and consume the opening parenthesis '(' (TOKEN_LPAREN)
-    if (!consume(parser, TOKEN_RBRACKET, "Expected ']' after 'prompt'.")) {
-        recover(parser);
-        return;
-    }
     
     // Expect and consume the opening double quote '"' (TOKEN_DOUBLE_QUOTE)
     if (!consume(parser, TOKEN_DOUBLE_QUOTE, "Expected opening '\"' for prompt string.")) {

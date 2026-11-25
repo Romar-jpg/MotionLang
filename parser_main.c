@@ -4,8 +4,16 @@
 int main(int argc, char *argv[]) {
     const char *symbol_file = (argc > 1) ? argv[1] : "Symbol Table.txt";
 
-    Parser parser;
+    Parser parser = {0};
     if (!load_tokens_from_symbol_table(symbol_file, &parser)) {
+        return 1;
+    }
+
+    if (parser.count == 0) {
+        fprintf(stderr,
+                "Parser Error: No tokens found in '%s'; expected a symbol table file.\n",
+                symbol_file);
+        free_parser(&parser);
         return 1;
     }
 

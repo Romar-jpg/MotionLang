@@ -210,6 +210,25 @@ int load_tokens_from_symbol_table(const char *filename, Parser *parser) {
     }
 
     fclose(file);
+    // 1. Guard against empty files or passing a raw .mtnl file instead of Symbol Table.txt
+    if (parser->count == 0) {
+        fprintf(stderr, "Parser Error: No valid tokens loaded from '%s' (pass the Symbol Table file).\n", filename);
+        free(parser->tokens);
+        parser->tokens = NULL;
+        return 0;
+    }
+
+    // 2. Ensure token stream always ends with TOKEN_EOF so advance() never stalls
+    if (parser->tokens[parser->count - 1].type != TOKEN_EOF) {
+        if (parser->count >= capacity) {
+            capacity += 1;
+            parser->tokens = (Token *)realloc(parser->tokens, (size_t)capacity * sizeof(Token));
+        }
+        Token last = parser->tokens[parser->count - 1];
+        parser->tokens[parser->count] = createToken(TOKEN_EOF, "EOF", last.line, last.column);
+        parser->count++;
+    }
+    // ===========================
     return 1;
 }
 
