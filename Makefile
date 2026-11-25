@@ -12,8 +12,9 @@ LEXER_SRCS = main.c motionlang_tokens.c motionlang_lexer.c motionlang_stream.c
 # Parser source files (excludes main.c and parser_stubs.c to avoid duplicate definitions)
 PARSER_SRCS = parser_main.c motionlang_tokens.c motionlang_parser.c \
               motionlang_parser_assign.c motionlang_parser_conditional.c \
+              motionlang_parser_declaration.c \
               motionlang_parser_exprs.c motionlang_parser_io.c \
-              motionlang_parser_iterative.c Motionlang_parser_noise.c
+              motionlang_parser_iterative.c motionlang_parser_noise.c
 
 # Default rule builds both executables
 all: $(LEXER_TARGET) $(PARSER_TARGET)
