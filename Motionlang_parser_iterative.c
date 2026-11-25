@@ -109,3 +109,25 @@ void parse_loop_stmt(Parser *parser) {
     parse_block(parser);                      // body { ... }
     if (parser->panic_mode) recover(parser);  // only if block didn't already
 }
+
+void parse_flow_stmt(Parser *parser) {
+    if (match(parser, TOKEN_HALT) || match(parser, TOKEN_SKIP)) {
+        consume(parser, TOKEN_SEMICOLON,
+                "Expected ';' after 'halt' or 'skip'.");
+        return;
+    }
+
+    if (!consume(parser, TOKEN_RETURN,
+                 "Expected 'halt', 'skip', or 'return'.")) {
+        return;
+    }
+
+    if (!check(parser, TOKEN_SEMICOLON)) {
+        parse_expr(parser);
+    }
+
+    if (!parser->panic_mode) {
+        consume(parser, TOKEN_SEMICOLON,
+                "Expected ';' after return statement.");
+    }
+}

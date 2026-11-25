@@ -2,20 +2,24 @@
  Validates all keywords, data types, operators, and delimiters
  #]
 
-# Basic variable declarations
-hold text name;
+# Basic variable declarations 
+hold text name; 
 grab name = prompt("Enter student name: ");
 
+#Declaration statement variable only example
 hold num age;
+
+# Input Statement example:
 grab age = prompt("Enter student age: ");
+
 
 hold dec gpa = 1.25;
 hold fixed degree_program = "BSCS";
 hold text homeCity = "Manila City";
-hold text college_Year = "Sophomore";
+hold text college_Year = "Sophomore"; #declaration w/ assignment ex.
 
 # 2. Delimiters, Brackets, and Stash Arrays
-hold stash num scores[3];
+hold num scores[3]; #declaration of data type/variable list ex.
 grab scores[0] = 88;
 grab scores[1] = 92;
 grab scores[2] = 95;
@@ -24,13 +28,20 @@ grab scores[2] = 95;
 
 hold num sum = 10 + 5;
 hold num diff = 20 - 4;
-hold num product = 6 * 7;
+hold num score = 6 * 7;
 hold dec quotient = 15.0 / 2.0;
 hold num remainder = 17 % 5;
 hold num quotient = 17 div 5;
 hold num power_value = 2 ^ 3;
 
+emit score; #Output Rule 2: Variable Only example
+emit "Your score is:   ", score; #String + Variable example
+
+#bonus: expressions precedence
+
 # 4. Relational & Boolean Word Operators: ==, !=, <, >, <=, >=, AND, OR, NOT
+
+#Rule 3: Nested if
 
 if ((age >= 18) AND NOT (gpa > 3.00)) {
     emit "Status: Qualified Regular Adult Student";
@@ -39,7 +50,8 @@ else if ((age < 18) OR (gpa == 1.00)) {
     emit "Status: Evaluation Needed";
 }
 else {
-    emit "Status: Standard Review";
+    emit "Status: Standard Review"; 
+    #Output statement rule 1: String only example
 }
 
 if (sum != 0) {
@@ -47,10 +59,20 @@ if (sum != 0) {
 }
 
 if (diff <= 0) {
-    emit "Negative diff!"
+    emit "Negative diff!"; #Condition If 
 }
 
-# 5. Loop Keywords: spin, halt, skip
+#Rule 2: If-else
+if (score >= 75) {
+    	         emit "Passed!";
+      } 
+      else {
+  	          emit "Repeat";
+      }
+
+
+
+# 5. Loop Keywords: spin, halt, skip (formal)
 
 hold num counter = 0;
 spin (counter < 10 times) {
@@ -65,6 +87,19 @@ spin (counter < 10 times) {
     }
 }
 
+# (Iterative example)
+hold num counter = 0;
+spin (counter < 10 times) {
+    grab counter = counter + 1;
+
+    if (counter == 2) {
+        skip;
+    }
+
+    if (counter == 8) {
+        halt;
+    }
+}
 
 # 6. Function Keywords: routine, return
 routine compute_bonus(num base_val, dec multiplier) {
