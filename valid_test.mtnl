@@ -65,6 +65,7 @@ spin (counter < 10 times) {
     }
 }
 
+
 # 6. Function Keywords: routine, return
 routine compute_bonus(num base_val, dec multiplier) {
     hold dec adjusted_val = base_val * multiplier;

@@ -13,7 +13,6 @@
  * EBNF:   if_stmt    = "If" expr [ "Then" ] block ... ;
  *         while_stmt = "While" expr [ "Do" ] block ;
  */
-
 #include <stdio.h>
 #include "Motionlang_parser.h"
 
