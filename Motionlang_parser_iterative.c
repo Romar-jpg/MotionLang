@@ -1,56 +1,111 @@
+#include "motionlang_parser.h"
+
 /*
- * Motionlang_parser_iterative.c
- * MotionLang - Syntactic Phase: ITERATIVE STATEMENTS (loops)
+ * ITERATIVE STATEMENTS  (Spin)
  *
- * EBNF:
- *   while_stmt = "While" expr [ "Do" ] block ;
- *   for_stmt   = "For" simple_stmt ";" expr ";" assign [ "Do" ] block ;
+ * Two forms, told apart by one token of lookahead:
  *
- * NOTE: "While" and "For" are not in the proposal's keyword list yet.
- *       Add them to the keyword registry (Pt. 3).
+ * while-style:  <loop_stmt> -> "Spin" <expr> [ "do" ] <block>
+ *
+ * for-style:    <loop_stmt> -> "Spin" <assignment_stmt> <expr> ";"
+ *                              <IDENTIFIER> "=" <expr> [ "do" ] <block>
+ *     e.g.  Spin i = 0; i < 5; i = i + 1 do { ... }
+ *     (the init assignment already ends with its own ';')
+ *
+ * If "Spin" is followed by  IDENTIFIER "="  it is the for-style, because an
+ * expression can never begin that way (assignment is not an expression).
+ *
+ * Error convention (same as parse_assign_stmt):
+ *   - parse_expr() / consume() only FLAG the error (panic_mode = 1).
+ *   - Whoever sees panic_mode still set calls recover() ONCE and returns.
+ *   - parse_assign_stmt and parse_block recover by themselves, so after
+ *     them we must NOT call recover() again (it would skip good tokens).
+ *   - A broken header skips its whole block (no fake errors from the body).
  */
 
-#include <stdio.h>
-#include "Motionlang_parser.h"
+// Error resync for a broken HEADER (condition / init / step / wrong noise word).
+// Skips ahead to the block that belongs to the statement and skips the whole
+// { ... } (braces are counted, so nested blocks are handled), then clears
+// panic mode. This avoids a pile of fake errors from parsing the body as if
+// it were new top-level statements.
+//   stop_at_semicolon = 1: if a ';' comes before any '{', the block was
+//   probably forgotten, so consume the ';' and stop there.
+//   Use 0 for a for-style header, where ';' is a normal part of the header.
+static void skip_control_block(Parser *parser, int stop_at_semicolon) {
+    while (!check(parser, TOKEN_EOF) &&
+           !check(parser, TOKEN_LBRACE) &&
+           !check(parser, TOKEN_RBRACE)) {
+        if (stop_at_semicolon && check(parser, TOKEN_SEMICOLON)) {
+            advance(parser);
+            parser->panic_mode = 0;
+            return;
+        }
+        advance(parser);
+    }
 
-/* ---- While ---- */
-void parse_while(void) {
-    advance();                                   /* eat "While"          */
-    char *cond = parse_expr();
-    out("WHILE");
-    depth++;
-    out("CONDITION %s", cond);
-    accept_noise(N_DO);                          /* optional "Do"        */
-    loop_depth++;                                /* Break/Continue legal */
-    parse_block("BODY");
-    loop_depth--;
-    depth--;
+    if (check(parser, TOKEN_LBRACE)) {
+        int nesting = 0;
+        do {
+            if (check(parser, TOKEN_LBRACE))      nesting++;
+            else if (check(parser, TOKEN_RBRACE)) nesting--;
+            advance(parser);
+        } while (nesting > 0 && !check(parser, TOKEN_EOF));
+    }
+    parser->panic_mode = 0;
 }
 
-/* ---- For init ; cond ; step ---- */
-void parse_for(void) {
-    advance();                                   /* eat "For"            */
-    out("FOR");
-    depth++;
+void parse_loop_stmt(Parser *parser) {
+    // 1. "Spin"
+    if (!consume(parser, TOKEN_SPIN, "Expected 'Spin'.")) {
+        recover(parser);
+        return;
+    }
 
-    out("INIT:");
-    depth++; parse_simple(); depth--;            /* e.g. Num i = 0       */
-    expect(T_SEMI, "';' after for-initializer");
+    if (check(parser, TOKEN_IDENTIFIER) &&
+        peek_next(parser).type == TOKEN_ASSIGN) {
 
-    char *cond = parse_expr();                   /* e.g. i < 5           */
-    out("CONDITION %s", cond);
-    expect(T_SEMI, "';' after for-condition");
+        // ---- for-style ----
 
-    out("STEP:");
-    depth++;
-    if (!(check(T_IDENT) && toks[pos + 1].type == T_ASSIGN))
-        fail("for-step must be an assignment (e.g. i = i + 1)");
-    parse_simple();                              /* e.g. i = i + 1       */
-    depth--;
+        // init: parse_assign_stmt recovers by itself on error
+        int errors_before = parser->error_count;
+        parse_assign_stmt(parser);
+        if (parser->panic_mode || parser->error_count > errors_before) {
+            skip_control_block(parser, 0);
+            return;
+        }
 
-    accept_noise(N_DO);                          /* optional "Do"        */
-    loop_depth++;
-    parse_block("BODY");
-    loop_depth--;
-    depth--;
+        // condition
+        parse_expr(parser);
+        if (parser->panic_mode) { skip_control_block(parser, 0); return; }
+
+        if (!consume(parser, TOKEN_SEMICOLON, "Expected ';' after loop condition.")) {
+            skip_control_block(parser, 0);
+            return;
+        }
+
+        // step:  IDENTIFIER = <expr>   (no ';')
+        if (!consume(parser, TOKEN_IDENTIFIER, "Expected an assignment as the loop step.") ||
+            !consume(parser, TOKEN_ASSIGN,     "Expected '=' in the loop step.")) {
+            skip_control_block(parser, 0);
+            return;
+        }
+        parse_expr(parser);
+        if (parser->panic_mode) { skip_control_block(parser, 0); return; }
+
+    } else {
+        // ---- while-style ----
+        parse_expr(parser);                   // condition
+        if (parser->panic_mode) { skip_control_block(parser, 1); return; }
+    }
+
+    accept_noise(parser, "do");               // optional noise word
+
+    if (check(parser, TOKEN_NOISE)) {         // wrong noise word, e.g. "then"
+        noise_misplaced(parser);
+        skip_control_block(parser, 0);
+        return;
+    }
+
+    parse_block(parser);                      // body { ... }
+    if (parser->panic_mode) recover(parser);  // only if block didn't already
 }
