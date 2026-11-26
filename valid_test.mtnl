@@ -16,9 +16,11 @@ hold dec gpa = 1.25;
 fixed text degree_program = "BSCS";
 hold text homeCity = "Manila City";
 hold text college_Year = "Sophomore"; # declaration w/ assignment ex.
+hold char abcde = 'a';
 
 # 2. Delimiters, Brackets, and Stash Arrays
-hold num scores[3]; # declaration of data type/variable list ex.
+hold stash num scores[3]; # declaration of data type/variable list ex.
+hold flag ppl_score = 1;
 
 # 3. Arithmetic Operations: +, -, *, /, %, div, ^
 hold num sum = 10 + 5;

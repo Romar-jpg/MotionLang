@@ -1,36 +1,70 @@
-[# MotionLang Lexical Analyzer - Comprehensive Error Suite
-Triggers lexical error traps across identifier rules, numeric
-formats, string/char bounds, and unauthorized symbol sets. #]
+[# MotionLang Syntax & Lexical Analyzer - Comprehensive Error Suite
+   Tests grammatical violations across all statement types and verifies
+   panic-mode error recovery with line/column diagnostics. #]
 
-#Must start lowercase, cannot start with uppercase or underscore.
-hold num UserScore = 100; 
+# 1. MISSING SEMICOLONS & STATEMENT TERMINATORS + outside chars
+hold num age = 20
 
-# 1. Invalid Identifier Constraints 
-# cannot start with underscore 
-hold num _counter = 0;
+hold text total@count = "fifty";
 
-# Identifiers cannot contain digits anywhere.
-hold dec box1 = 15.5;
+# 2. DECLARATION & ARRAY SYNTAX ERRORS
+# Array declaration missing size inside brackets
+hold num scored[];
 
-# Rule: Identifiers cannot put unauthorized symbols or hyphens.
-hold text total@count = "5000000"; 
-hold text total-count = "hyphenated"; (nasa char set)
+# Missing data type in declaration
+hold missing_type = 10;
 
-# Rule: Whitespace cannot split an identifier.
+# 3. MALFORMED EXPRESSIONS & OPERATOR SEQUENCES
+# Whitespace splitting an identifier (unexpected 'score' after 'box')
 hold num box score = 50;
 
-# no trailing decimal digits
-hold dec avg_score = 45.; 
+# Consecutive binary operators and bad number
+hold num bad_math = 10 + * 5;
+hold num bad_nums = 12.34.56;
 
-# 2. Unauthorized Symbols & Foreign Characters
-# Traps characters outside the MotionLang operational and delimiter alphabet.
+# Invalid compound operator sequences
+hold num false_logic = 10 === 5;
+hold num bad_not = 10 ! 2;
+
+# Unclosed parenthesis in expression
+hold num unclosed_paren = (5 + 3;
+
+# 4. INPUT (grab) & OUTPUT (emit) SYNTAX ERRORS
+# 'grab' requires prompt("...") on the right-hand side
+grab age = 25;
+
+# 'emit' missing expression before semicolon
+emit ;
+
+# 5. CONDITIONAL (if / else if / else) ERRORS
+# Missing parentheses around condition
+if age >= 18 {
+    emit "Missing parens";
+}
+
+# Orphan 'else' with no preceding 'if'
+else {
+    emit "Orphan else";
+}
+
+# 6. LOOP (spin) & FLOW CONTROL (halt / skip / return) ERRORS
+# Wrong noise word ('do' instead of 'times')
+spin (age < 25 do) {
+    skip
+    halt
+}
+
+# Empty loop header
+spin () {
+    emit "Empty spin";
+}
+
+# 8. LEXICAL ERROR TOKENS
+hold num _counter = 0;
+hold dec box1 = 15.5;
+hold dec avg_score = 45.;
 hold text money = 500$;
-hold num bit_flag = 10 & 20;
-hold num score = 100 \ 2;
-
-# 3. Malformed Numeric & Decimal Literals
-# Multiple consecutive decimal points 
-hold dec broken_decimal = 12.34.56;
+hold num error_num = 123a45;
 
 # 4. Unterminated Literals & Boundary Violations
 hold text open_string = "She is my black pearl;
@@ -43,12 +77,3 @@ hold char multi_char = 'abc';
 
 # Unterminated character using single quote
 hold char open_char = 'x;
-
-# Unauthorized symbols within integers
-hold num error_num = 123a45; 
-
-# 5. Malformed Operator Sequences
-# Invalid compound assignment / relational sequences
-hold num false_logic = 10 === 5; # (first two is detected as relational_equal, then third one is assignment equal)
-hold num bad_not = 10 ! 2; # (detected as separates)
-

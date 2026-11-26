@@ -1,341 +1,231 @@
 ====================================================================================================================
 TOKEN CLASSIFICATION       | LEXEME                                                  | COORDINATES
 ====================================================================================================================
-COMMENT                    | [# Program: MotionLang Lexical Analyzer Test Suite\n    | Line: 1   Col: 1  
-                           | Validates all keywords, data types, operators, and      |
-                           | delimiters\n #]                                         |
-COMMENT                    | # Basic variable declarations                           | Line: 5   Col: 1  
+COMMENT                    | [# MotionLang Syntax & Lexical Analyzer -               | Line: 1   Col: 1  
+                           | Comprehensive Error Suite\n   Tests grammatical         |
+                           | violations across all statement types and verifies\n    |
+                           | panic-mode error recovery with line/column              |
+                           | diagnostics. #]                                         |
+COMMENT                    | # 1. MISSING SEMICOLONS & STATEMENT TERMINATORS +       | Line: 5   Col: 1  
+                           | outside chars                                           |
 STORAGE_HOLD               | hold                                                    | Line: 6   Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 6   Col: 6  
-IDENTIFIER                 | name                                                    | Line: 6   Col: 11 
-DELIM_SEMICOLON            | ;                                                       | Line: 6   Col: 15 
-KEYWORD_GRAB               | grab                                                    | Line: 7   Col: 1  
-IDENTIFIER                 | name                                                    | Line: 7   Col: 6  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 7   Col: 11 
-KEYWORD_PROMPT             | prompt                                                  | Line: 7   Col: 13 
-DELIM_LPAREN               | (                                                       | Line: 7   Col: 19 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 7   Col: 20 
-STRING_LITERAL             | Enter student name:                                     | Line: 7   Col: 21 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 7   Col: 41 
-DELIM_RPAREN               | )                                                       | Line: 7   Col: 42 
-DELIM_SEMICOLON            | ;                                                       | Line: 7   Col: 43 
-COMMENT                    | # Declaration statement variable only example           | Line: 9   Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 10  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 10  Col: 6  
-IDENTIFIER                 | age                                                     | Line: 10  Col: 10 
-DELIM_SEMICOLON            | ;                                                       | Line: 10  Col: 13 
-COMMENT                    | # Input Statement example:                              | Line: 12  Col: 1  
-KEYWORD_GRAB               | grab                                                    | Line: 13  Col: 1  
-IDENTIFIER                 | age                                                     | Line: 13  Col: 6  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 13  Col: 10 
-KEYWORD_PROMPT             | prompt                                                  | Line: 13  Col: 12 
-DELIM_LPAREN               | (                                                       | Line: 13  Col: 18 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 13  Col: 19 
-STRING_LITERAL             | Enter student age:                                      | Line: 13  Col: 20 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 13  Col: 39 
-DELIM_RPAREN               | )                                                       | Line: 13  Col: 40 
-DELIM_SEMICOLON            | ;                                                       | Line: 13  Col: 41 
-STORAGE_HOLD               | hold                                                    | Line: 15  Col: 1  
-DATA_TYPE_DEC              | dec                                                     | Line: 15  Col: 6  
-IDENTIFIER                 | gpa                                                     | Line: 15  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 15  Col: 14 
-DECIMAL_LITERAL            | 1.25                                                    | Line: 15  Col: 16 
-DELIM_SEMICOLON            | ;                                                       | Line: 15  Col: 20 
-STORAGE_FIXED              | fixed                                                   | Line: 16  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 16  Col: 7  
-IDENTIFIER                 | degree_program                                          | Line: 16  Col: 12 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 16  Col: 27 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 16  Col: 29 
-STRING_LITERAL             | BSCS                                                    | Line: 16  Col: 30 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 16  Col: 34 
-DELIM_SEMICOLON            | ;                                                       | Line: 16  Col: 35 
-STORAGE_HOLD               | hold                                                    | Line: 17  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 17  Col: 6  
-IDENTIFIER                 | homeCity                                                | Line: 17  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 17  Col: 20 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 17  Col: 22 
-STRING_LITERAL             | Manila City                                             | Line: 17  Col: 23 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 17  Col: 34 
-DELIM_SEMICOLON            | ;                                                       | Line: 17  Col: 35 
-STORAGE_HOLD               | hold                                                    | Line: 18  Col: 1  
-DATA_TYPE_TEXT             | text                                                    | Line: 18  Col: 6  
-IDENTIFIER                 | college_Year                                            | Line: 18  Col: 11 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 18  Col: 24 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 18  Col: 26 
-STRING_LITERAL             | Sophomore                                               | Line: 18  Col: 27 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 18  Col: 36 
-DELIM_SEMICOLON            | ;                                                       | Line: 18  Col: 37 
-COMMENT                    | # declaration w/ assignment ex.                         | Line: 18  Col: 39 
-COMMENT                    | # 2. Delimiters, Brackets, and Stash Arrays             | Line: 20  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 21  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 21  Col: 6  
-IDENTIFIER                 | scores                                                  | Line: 21  Col: 10 
-DELIM_LBRACKET             | [                                                       | Line: 21  Col: 16 
-INTEGER_LITERAL            | 3                                                       | Line: 21  Col: 17 
-DELIM_RBRACKET             | ]                                                       | Line: 21  Col: 18 
-DELIM_SEMICOLON            | ;                                                       | Line: 21  Col: 19 
-COMMENT                    | # declaration of data type/variable list ex.            | Line: 21  Col: 21 
-COMMENT                    | # 3. Arithmetic Operations: +, -, *, /, %, div, ^       | Line: 23  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 24  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 24  Col: 6  
-IDENTIFIER                 | sum                                                     | Line: 24  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 24  Col: 14 
-INTEGER_LITERAL            | 10                                                      | Line: 24  Col: 16 
-OPERATOR_PLUS              | +                                                       | Line: 24  Col: 19 
-INTEGER_LITERAL            | 5                                                       | Line: 24  Col: 21 
-DELIM_SEMICOLON            | ;                                                       | Line: 24  Col: 22 
-STORAGE_HOLD               | hold                                                    | Line: 25  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 25  Col: 6  
-IDENTIFIER                 | diff                                                    | Line: 25  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 25  Col: 15 
-INTEGER_LITERAL            | 20                                                      | Line: 25  Col: 17 
-OPERATOR_MINUS             | -                                                       | Line: 25  Col: 20 
-INTEGER_LITERAL            | 4                                                       | Line: 25  Col: 22 
-DELIM_SEMICOLON            | ;                                                       | Line: 25  Col: 23 
+DATA_TYPE_NUM              | num                                                     | Line: 6   Col: 6  
+IDENTIFIER                 | age                                                     | Line: 6   Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 6   Col: 14 
+INTEGER_LITERAL            | 20                                                      | Line: 7   Col: 16 
+STORAGE_HOLD               | hold                                                    | Line: 9   Col: 1  
+DATA_TYPE_TEXT             | text                                                    | Line: 9   Col: 6  
+LEXICAL_ERROR              | total@count                                             | Line: 9   Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 9   Col: 23 
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 9   Col: 25 
+STRING_LITERAL             | fifty                                                   | Line: 9   Col: 26 
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 9   Col: 31 
+DELIM_SEMICOLON            | ;                                                       | Line: 9   Col: 32 
+STORAGE_HOLD               | hold                                                    | Line: 11  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 11  Col: 6  
+IDENTIFIER                 | btob                                                    | Line: 12  Col: 10 
+COMMENT                    | # 2. DECLARATION & ARRAY SYNTAX ERRORS                  | Line: 14  Col: 1  
+COMMENT                    | # Array declaration missing size inside brackets        | Line: 15  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 16  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 16  Col: 6  
+IDENTIFIER                 | scored                                                  | Line: 16  Col: 10 
+DELIM_LBRACKET             | [                                                       | Line: 16  Col: 16 
+DELIM_RBRACKET             | ]                                                       | Line: 16  Col: 17 
+DELIM_SEMICOLON            | ;                                                       | Line: 16  Col: 18 
+COMMENT                    | # Missing data type in declaration                      | Line: 18  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 19  Col: 1  
+IDENTIFIER                 | missing_type                                            | Line: 19  Col: 6  
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 19  Col: 19 
+INTEGER_LITERAL            | 10                                                      | Line: 19  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 19  Col: 23 
+COMMENT                    | # 3. MALFORMED EXPRESSIONS & OPERATOR SEQUENCES         | Line: 21  Col: 1  
+COMMENT                    | # Whitespace splitting an identifier (unexpected        | Line: 22  Col: 1  
+                           | 'score' after 'box')                                    |
+STORAGE_HOLD               | hold                                                    | Line: 23  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 23  Col: 6  
+IDENTIFIER                 | box                                                     | Line: 23  Col: 10 
+IDENTIFIER                 | score                                                   | Line: 23  Col: 14 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 23  Col: 20 
+INTEGER_LITERAL            | 50                                                      | Line: 23  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 23  Col: 24 
+COMMENT                    | # Consecutive binary operators and bad number           | Line: 25  Col: 1  
 STORAGE_HOLD               | hold                                                    | Line: 26  Col: 1  
 DATA_TYPE_NUM              | num                                                     | Line: 26  Col: 6  
-IDENTIFIER                 | score                                                   | Line: 26  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 26  Col: 16 
-INTEGER_LITERAL            | 6                                                       | Line: 26  Col: 18 
-OPERATOR_MULTIPLY          | *                                                       | Line: 26  Col: 20 
-INTEGER_LITERAL            | 7                                                       | Line: 26  Col: 22 
-DELIM_SEMICOLON            | ;                                                       | Line: 26  Col: 23 
+IDENTIFIER                 | bad_math                                                | Line: 26  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 26  Col: 19 
+INTEGER_LITERAL            | 10                                                      | Line: 26  Col: 21 
+OPERATOR_PLUS              | +                                                       | Line: 26  Col: 24 
+OPERATOR_MULTIPLY          | *                                                       | Line: 26  Col: 26 
+INTEGER_LITERAL            | 5                                                       | Line: 26  Col: 28 
+DELIM_SEMICOLON            | ;                                                       | Line: 26  Col: 29 
 STORAGE_HOLD               | hold                                                    | Line: 27  Col: 1  
-DATA_TYPE_DEC              | dec                                                     | Line: 27  Col: 6  
-IDENTIFIER                 | quotient                                                | Line: 27  Col: 10 
+DATA_TYPE_NUM              | num                                                     | Line: 27  Col: 6  
+IDENTIFIER                 | bad_nums                                                | Line: 27  Col: 10 
 ASSIGNMENT_OPERATOR        | =                                                       | Line: 27  Col: 19 
-DECIMAL_LITERAL            | 15.0                                                    | Line: 27  Col: 21 
-OPERATOR_DIVIDE            | /                                                       | Line: 27  Col: 26 
-DECIMAL_LITERAL            | 2.0                                                     | Line: 27  Col: 28 
-DELIM_SEMICOLON            | ;                                                       | Line: 27  Col: 31 
-STORAGE_HOLD               | hold                                                    | Line: 28  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 28  Col: 6  
-IDENTIFIER                 | remainder                                               | Line: 28  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 28  Col: 20 
-INTEGER_LITERAL            | 17                                                      | Line: 28  Col: 22 
-OPERATOR_MODULO            | %                                                       | Line: 28  Col: 25 
-INTEGER_LITERAL            | 5                                                       | Line: 28  Col: 27 
-DELIM_SEMICOLON            | ;                                                       | Line: 28  Col: 28 
-STORAGE_HOLD               | hold                                                    | Line: 29  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 29  Col: 6  
-IDENTIFIER                 | int_quotient                                            | Line: 29  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 29  Col: 23 
-INTEGER_LITERAL            | 17                                                      | Line: 29  Col: 25 
-OPERATOR_DIV               | div                                                     | Line: 29  Col: 28 
-INTEGER_LITERAL            | 5                                                       | Line: 29  Col: 32 
-DELIM_SEMICOLON            | ;                                                       | Line: 29  Col: 33 
+LEXICAL_ERROR              | 12.34.56                                                | Line: 27  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 27  Col: 29 
+COMMENT                    | # Invalid compound operator sequences                   | Line: 29  Col: 1  
 STORAGE_HOLD               | hold                                                    | Line: 30  Col: 1  
 DATA_TYPE_NUM              | num                                                     | Line: 30  Col: 6  
-IDENTIFIER                 | power_value                                             | Line: 30  Col: 10 
+IDENTIFIER                 | false_logic                                             | Line: 30  Col: 10 
 ASSIGNMENT_OPERATOR        | =                                                       | Line: 30  Col: 22 
-INTEGER_LITERAL            | 2                                                       | Line: 30  Col: 24 
-OPERATOR_EXPONENT          | ^                                                       | Line: 30  Col: 26 
-INTEGER_LITERAL            | 3                                                       | Line: 30  Col: 28 
-DELIM_SEMICOLON            | ;                                                       | Line: 30  Col: 29 
-KEYWORD_EMIT               | emit                                                    | Line: 32  Col: 1  
-IDENTIFIER                 | score                                                   | Line: 32  Col: 6  
-DELIM_SEMICOLON            | ;                                                       | Line: 32  Col: 11 
-COMMENT                    | # Output Rule 2: Variable Only example                  | Line: 32  Col: 13 
-KEYWORD_EMIT               | emit                                                    | Line: 33  Col: 1  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 33  Col: 6  
-STRING_LITERAL             | Your score is:                                          | Line: 33  Col: 7  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 33  Col: 24 
-DELIM_SEMICOLON            | ;                                                       | Line: 33  Col: 25 
-KEYWORD_EMIT               | emit                                                    | Line: 34  Col: 1  
-IDENTIFIER                 | score                                                   | Line: 34  Col: 6  
-DELIM_SEMICOLON            | ;                                                       | Line: 34  Col: 11 
-COMMENT                    | # 4. Relational & Boolean Word Operators: ==, !=, <,    | Line: 36  Col: 1  
-                           | >, <=, >=, AND, OR, NOT                                 |
-COMMENT                    | # Rule 3: Nested if                                     | Line: 37  Col: 1  
-KEYWORD_IF                 | if                                                      | Line: 38  Col: 1  
-DELIM_LPAREN               | (                                                       | Line: 38  Col: 4  
-DELIM_LPAREN               | (                                                       | Line: 38  Col: 5  
+INTEGER_LITERAL            | 10                                                      | Line: 30  Col: 24 
+RELATIONAL_EQUAL           | ==                                                      | Line: 30  Col: 27 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 30  Col: 29 
+INTEGER_LITERAL            | 5                                                       | Line: 30  Col: 31 
+DELIM_SEMICOLON            | ;                                                       | Line: 30  Col: 32 
+STORAGE_HOLD               | hold                                                    | Line: 31  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 31  Col: 6  
+IDENTIFIER                 | bad_not                                                 | Line: 31  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 31  Col: 18 
+INTEGER_LITERAL            | 10                                                      | Line: 31  Col: 20 
+LOGICAL_NOT                | !                                                       | Line: 31  Col: 23 
+INTEGER_LITERAL            | 2                                                       | Line: 31  Col: 25 
+DELIM_SEMICOLON            | ;                                                       | Line: 31  Col: 26 
+COMMENT                    | # Unclosed parenthesis in expression                    | Line: 33  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 34  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 34  Col: 6  
+IDENTIFIER                 | unclosed_paren                                          | Line: 34  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 34  Col: 25 
+DELIM_LPAREN               | (                                                       | Line: 34  Col: 27 
+INTEGER_LITERAL            | 5                                                       | Line: 34  Col: 28 
+OPERATOR_PLUS              | +                                                       | Line: 34  Col: 30 
+INTEGER_LITERAL            | 3                                                       | Line: 34  Col: 32 
+DELIM_SEMICOLON            | ;                                                       | Line: 34  Col: 33 
+COMMENT                    | # 4. INPUT (grab) & OUTPUT (emit) SYNTAX ERRORS         | Line: 36  Col: 1  
+COMMENT                    | # 'grab' requires prompt("...") on the right-hand side  | Line: 37  Col: 1  
+KEYWORD_GRAB               | grab                                                    | Line: 38  Col: 1  
 IDENTIFIER                 | age                                                     | Line: 38  Col: 6  
-RELATIONAL_GREATEREQUAL    | >=                                                      | Line: 38  Col: 10 
-INTEGER_LITERAL            | 18                                                      | Line: 38  Col: 13 
-DELIM_RPAREN               | )                                                       | Line: 38  Col: 15 
-LOGICAL_AND                | AND                                                     | Line: 38  Col: 17 
-LOGICAL_NOT                | NOT                                                     | Line: 38  Col: 21 
-DELIM_LPAREN               | (                                                       | Line: 38  Col: 25 
-IDENTIFIER                 | gpa                                                     | Line: 38  Col: 26 
-RELATIONAL_GREATER         | >                                                       | Line: 38  Col: 30 
-DECIMAL_LITERAL            | 3.00                                                    | Line: 38  Col: 32 
-DELIM_RPAREN               | )                                                       | Line: 38  Col: 36 
-DELIM_RPAREN               | )                                                       | Line: 38  Col: 37 
-DELIM_LBRACE               | {                                                       | Line: 38  Col: 39 
-KEYWORD_EMIT               | emit                                                    | Line: 39  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 39  Col: 10 
-STRING_LITERAL             | Status: Qualified Regular Adult Student                 | Line: 39  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 39  Col: 50 
-DELIM_SEMICOLON            | ;                                                       | Line: 39  Col: 51 
-DELIM_RBRACE               | }                                                       | Line: 40  Col: 1  
-KEYWORD_ELSE_IF            | else if                                                 | Line: 41  Col: 1  
-DELIM_LPAREN               | (                                                       | Line: 41  Col: 9  
-DELIM_LPAREN               | (                                                       | Line: 41  Col: 10 
-IDENTIFIER                 | age                                                     | Line: 41  Col: 11 
-RELATIONAL_LESS            | <                                                       | Line: 41  Col: 15 
-INTEGER_LITERAL            | 18                                                      | Line: 41  Col: 17 
-DELIM_RPAREN               | )                                                       | Line: 41  Col: 19 
-LOGICAL_OR                 | OR                                                      | Line: 41  Col: 21 
-DELIM_LPAREN               | (                                                       | Line: 41  Col: 24 
-IDENTIFIER                 | gpa                                                     | Line: 41  Col: 25 
-RELATIONAL_EQUAL           | ==                                                      | Line: 41  Col: 29 
-DECIMAL_LITERAL            | 1.00                                                    | Line: 41  Col: 32 
-DELIM_RPAREN               | )                                                       | Line: 41  Col: 36 
-DELIM_RPAREN               | )                                                       | Line: 41  Col: 37 
-DELIM_LBRACE               | {                                                       | Line: 41  Col: 39 
-KEYWORD_EMIT               | emit                                                    | Line: 42  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 42  Col: 10 
-STRING_LITERAL             | Status: Evaluation Needed                               | Line: 42  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 42  Col: 36 
-DELIM_SEMICOLON            | ;                                                       | Line: 42  Col: 37 
-DELIM_RBRACE               | }                                                       | Line: 43  Col: 1  
-KEYWORD_ELSE               | else                                                    | Line: 44  Col: 1  
-DELIM_LBRACE               | {                                                       | Line: 44  Col: 6  
-KEYWORD_EMIT               | emit                                                    | Line: 45  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 45  Col: 10 
-STRING_LITERAL             | Status: Standard Review                                 | Line: 45  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 45  Col: 34 
-DELIM_SEMICOLON            | ;                                                       | Line: 45  Col: 35 
-COMMENT                    | # Output statement rule 1: String only example          | Line: 45  Col: 37 
-DELIM_RBRACE               | }                                                       | Line: 46  Col: 1  
-KEYWORD_IF                 | if                                                      | Line: 48  Col: 1  
-DELIM_LPAREN               | (                                                       | Line: 48  Col: 4  
-IDENTIFIER                 | sum                                                     | Line: 48  Col: 5  
-RELATIONAL_NOTEQUAL        | !=                                                      | Line: 48  Col: 9  
-INTEGER_LITERAL            | 0                                                       | Line: 48  Col: 12 
-DELIM_RPAREN               | )                                                       | Line: 48  Col: 13 
-DELIM_LBRACE               | {                                                       | Line: 48  Col: 15 
-KEYWORD_EMIT               | emit                                                    | Line: 49  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 49  Col: 10 
-STRING_LITERAL             | The sum is not zero!                                    | Line: 49  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 49  Col: 31 
-DELIM_SEMICOLON            | ;                                                       | Line: 49  Col: 32 
-DELIM_RBRACE               | }                                                       | Line: 50  Col: 1  
-KEYWORD_IF                 | if                                                      | Line: 52  Col: 1  
-DELIM_LPAREN               | (                                                       | Line: 52  Col: 4  
-IDENTIFIER                 | diff                                                    | Line: 52  Col: 5  
-RELATIONAL_LESSEQUAL       | <=                                                      | Line: 52  Col: 10 
-INTEGER_LITERAL            | 0                                                       | Line: 52  Col: 13 
-DELIM_RPAREN               | )                                                       | Line: 52  Col: 14 
-DELIM_LBRACE               | {                                                       | Line: 52  Col: 16 
-KEYWORD_EMIT               | emit                                                    | Line: 53  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 53  Col: 10 
-STRING_LITERAL             | Negative diff!                                          | Line: 53  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 53  Col: 25 
-DELIM_SEMICOLON            | ;                                                       | Line: 53  Col: 26 
-COMMENT                    | # Condition If                                          | Line: 53  Col: 28 
-DELIM_RBRACE               | }                                                       | Line: 54  Col: 1  
-COMMENT                    | # Rule 2: If-else                                       | Line: 56  Col: 1  
-KEYWORD_IF                 | if                                                      | Line: 57  Col: 1  
-DELIM_LPAREN               | (                                                       | Line: 57  Col: 4  
-IDENTIFIER                 | score                                                   | Line: 57  Col: 5  
-RELATIONAL_GREATEREQUAL    | >=                                                      | Line: 57  Col: 11 
-INTEGER_LITERAL            | 75                                                      | Line: 57  Col: 14 
-DELIM_RPAREN               | )                                                       | Line: 57  Col: 16 
-DELIM_LBRACE               | {                                                       | Line: 57  Col: 18 
-KEYWORD_EMIT               | emit                                                    | Line: 58  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 58  Col: 10 
-STRING_LITERAL             | Passed!                                                 | Line: 58  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 58  Col: 18 
-DELIM_SEMICOLON            | ;                                                       | Line: 58  Col: 19 
-DELIM_RBRACE               | }                                                       | Line: 59  Col: 1  
-KEYWORD_ELSE               | else                                                    | Line: 60  Col: 1  
-DELIM_LBRACE               | {                                                       | Line: 60  Col: 6  
-KEYWORD_EMIT               | emit                                                    | Line: 61  Col: 5  
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 61  Col: 10 
-STRING_LITERAL             | Repeat                                                  | Line: 61  Col: 11 
-DELIM_DOUBLE_QUOTE         | "                                                       | Line: 61  Col: 17 
-DELIM_SEMICOLON            | ;                                                       | Line: 61  Col: 18 
-DELIM_RBRACE               | }                                                       | Line: 62  Col: 1  
-COMMENT                    | # 5. Loop Keywords: spin, halt, skip (formal)           | Line: 64  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 65  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 65  Col: 6  
-IDENTIFIER                 | counter                                                 | Line: 65  Col: 10 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 65  Col: 18 
-INTEGER_LITERAL            | 0                                                       | Line: 65  Col: 20 
-DELIM_SEMICOLON            | ;                                                       | Line: 65  Col: 21 
-KEYWORD_SPIN               | spin                                                    | Line: 66  Col: 1  
-DELIM_LPAREN               | (                                                       | Line: 66  Col: 6  
-IDENTIFIER                 | counter                                                 | Line: 66  Col: 7  
-RELATIONAL_LESS            | <                                                       | Line: 66  Col: 15 
-INTEGER_LITERAL            | 10                                                      | Line: 66  Col: 17 
-NOISE_WORD                 | times                                                   | Line: 66  Col: 20 
-DELIM_RPAREN               | )                                                       | Line: 66  Col: 25 
-DELIM_LBRACE               | {                                                       | Line: 66  Col: 27 
-IDENTIFIER                 | counter                                                 | Line: 67  Col: 5  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 67  Col: 13 
-IDENTIFIER                 | counter                                                 | Line: 67  Col: 15 
-OPERATOR_PLUS              | +                                                       | Line: 67  Col: 23 
-INTEGER_LITERAL            | 1                                                       | Line: 67  Col: 25 
-DELIM_SEMICOLON            | ;                                                       | Line: 67  Col: 26 
-KEYWORD_IF                 | if                                                      | Line: 69  Col: 5  
-DELIM_LPAREN               | (                                                       | Line: 69  Col: 8  
-IDENTIFIER                 | counter                                                 | Line: 69  Col: 9  
-RELATIONAL_EQUAL           | ==                                                      | Line: 69  Col: 17 
-INTEGER_LITERAL            | 2                                                       | Line: 69  Col: 20 
-DELIM_RPAREN               | )                                                       | Line: 69  Col: 21 
-DELIM_LBRACE               | {                                                       | Line: 69  Col: 23 
-KEYWORD_SKIP               | skip                                                    | Line: 70  Col: 9  
-DELIM_SEMICOLON            | ;                                                       | Line: 70  Col: 13 
-DELIM_RBRACE               | }                                                       | Line: 71  Col: 5  
-KEYWORD_IF                 | if                                                      | Line: 73  Col: 5  
-DELIM_LPAREN               | (                                                       | Line: 73  Col: 8  
-IDENTIFIER                 | counter                                                 | Line: 73  Col: 9  
-RELATIONAL_EQUAL           | ==                                                      | Line: 73  Col: 17 
-INTEGER_LITERAL            | 8                                                       | Line: 73  Col: 20 
-DELIM_RPAREN               | )                                                       | Line: 73  Col: 21 
-DELIM_LBRACE               | {                                                       | Line: 73  Col: 23 
-KEYWORD_HALT               | halt                                                    | Line: 74  Col: 9  
-DELIM_SEMICOLON            | ;                                                       | Line: 74  Col: 13 
-DELIM_RBRACE               | }                                                       | Line: 75  Col: 5  
-DELIM_RBRACE               | }                                                       | Line: 76  Col: 1  
-COMMENT                    | # 6. Function Keywords: routine, return                 | Line: 78  Col: 1  
-KEYWORD_ROUTINE            | routine                                                 | Line: 79  Col: 1  
-IDENTIFIER                 | compute_bonus                                           | Line: 79  Col: 9  
-DELIM_LPAREN               | (                                                       | Line: 79  Col: 22 
-DATA_TYPE_NUM              | num                                                     | Line: 79  Col: 23 
-IDENTIFIER                 | base_val                                                | Line: 79  Col: 27 
-DELIM_COMMA                | ,                                                       | Line: 79  Col: 35 
-DATA_TYPE_DEC              | dec                                                     | Line: 79  Col: 37 
-IDENTIFIER                 | multiplier                                              | Line: 79  Col: 41 
-DELIM_RPAREN               | )                                                       | Line: 79  Col: 51 
-DELIM_LBRACE               | {                                                       | Line: 79  Col: 53 
-STORAGE_HOLD               | hold                                                    | Line: 80  Col: 5  
-DATA_TYPE_DEC              | dec                                                     | Line: 80  Col: 10 
-IDENTIFIER                 | adjusted_val                                            | Line: 80  Col: 14 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 80  Col: 27 
-IDENTIFIER                 | base_val                                                | Line: 80  Col: 29 
-OPERATOR_MULTIPLY          | *                                                       | Line: 80  Col: 38 
-IDENTIFIER                 | multiplier                                              | Line: 80  Col: 40 
-DELIM_SEMICOLON            | ;                                                       | Line: 80  Col: 50 
-KEYWORD_RETURN             | return                                                  | Line: 81  Col: 5  
-IDENTIFIER                 | adjusted_val                                            | Line: 81  Col: 12 
-DELIM_SEMICOLON            | ;                                                       | Line: 81  Col: 24 
-DELIM_RBRACE               | }                                                       | Line: 82  Col: 1  
-COMMENT                    | # Plain Assignment Statements Verification              | Line: 84  Col: 1  
-IDENTIFIER                 | gpa                                                     | Line: 85  Col: 1  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 85  Col: 5  
-DECIMAL_LITERAL            | 1.25                                                    | Line: 85  Col: 7  
-DELIM_SEMICOLON            | ;                                                       | Line: 85  Col: 11 
-IDENTIFIER                 | adjusted_val                                            | Line: 86  Col: 1  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 86  Col: 14 
-IDENTIFIER                 | base_val                                                | Line: 86  Col: 16 
-DELIM_SEMICOLON            | ;                                                       | Line: 86  Col: 24 
-IDENTIFIER                 | counter                                                 | Line: 87  Col: 1  
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 87  Col: 9  
-IDENTIFIER                 | counter                                                 | Line: 87  Col: 11 
-OPERATOR_PLUS              | +                                                       | Line: 87  Col: 19 
-INTEGER_LITERAL            | 1                                                       | Line: 87  Col: 21 
-DELIM_SEMICOLON            | ;                                                       | Line: 87  Col: 22 
-COMMENT                    | # 7. Free-Field Format Verification                     | Line: 89  Col: 1  
-STORAGE_HOLD               | hold                                                    | Line: 90  Col: 1  
-DATA_TYPE_NUM              | num                                                     | Line: 90  Col: 8  
-IDENTIFIER                 | spaced_val                                              | Line: 90  Col: 15 
-ASSIGNMENT_OPERATOR        | =                                                       | Line: 91  Col: 28 
-INTEGER_LITERAL            | 100                                                     | Line: 92  Col: 5  
-OPERATOR_PLUS              | +                                                       | Line: 92  Col: 11 
-INTEGER_LITERAL            | 200                                                     | Line: 93  Col: 5  
-DELIM_SEMICOLON            | ;                                                       | Line: 93  Col: 11 
-END_OF_FILE                | EOF                                                     | Line: 93  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 38  Col: 10 
+INTEGER_LITERAL            | 25                                                      | Line: 38  Col: 12 
+DELIM_SEMICOLON            | ;                                                       | Line: 38  Col: 14 
+COMMENT                    | # 'emit' missing expression before semicolon            | Line: 40  Col: 1  
+KEYWORD_EMIT               | emit                                                    | Line: 41  Col: 1  
+DELIM_SEMICOLON            | ;                                                       | Line: 41  Col: 6  
+COMMENT                    | # 5. CONDITIONAL (if / else if / else) ERRORS           | Line: 43  Col: 1  
+COMMENT                    | # Missing parentheses around condition                  | Line: 44  Col: 1  
+KEYWORD_IF                 | if                                                      | Line: 45  Col: 1  
+IDENTIFIER                 | age                                                     | Line: 45  Col: 4  
+RELATIONAL_GREATEREQUAL    | >=                                                      | Line: 45  Col: 8  
+INTEGER_LITERAL            | 18                                                      | Line: 45  Col: 11 
+DELIM_LBRACE               | {                                                       | Line: 45  Col: 14 
+KEYWORD_EMIT               | emit                                                    | Line: 46  Col: 5  
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 46  Col: 10 
+STRING_LITERAL             | Missing parens                                          | Line: 46  Col: 11 
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 46  Col: 25 
+DELIM_SEMICOLON            | ;                                                       | Line: 46  Col: 26 
+DELIM_RBRACE               | }                                                       | Line: 47  Col: 1  
+COMMENT                    | # Orphan 'else' with no preceding 'if'                  | Line: 49  Col: 1  
+KEYWORD_ELSE               | else                                                    | Line: 50  Col: 1  
+DELIM_LBRACE               | {                                                       | Line: 50  Col: 6  
+KEYWORD_EMIT               | emit                                                    | Line: 51  Col: 5  
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 51  Col: 10 
+STRING_LITERAL             | Orphan else                                             | Line: 51  Col: 11 
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 51  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 51  Col: 23 
+DELIM_RBRACE               | }                                                       | Line: 52  Col: 1  
+COMMENT                    | # 6. LOOP (spin) & FLOW CONTROL (halt / skip / return)  | Line: 54  Col: 1  
+                           | ERRORS                                                  |
+COMMENT                    | # Wrong noise word ('do' instead of 'times')            | Line: 55  Col: 1  
+KEYWORD_SPIN               | spin                                                    | Line: 56  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 56  Col: 6  
+IDENTIFIER                 | age                                                     | Line: 56  Col: 7  
+RELATIONAL_LESS            | <                                                       | Line: 56  Col: 11 
+INTEGER_LITERAL            | 25                                                      | Line: 56  Col: 13 
+IDENTIFIER                 | do                                                      | Line: 56  Col: 16 
+DELIM_RPAREN               | )                                                       | Line: 56  Col: 18 
+DELIM_LBRACE               | {                                                       | Line: 56  Col: 20 
+KEYWORD_SKIP               | skip                                                    | Line: 58  Col: 5  
+KEYWORD_HALT               | halt                                                    | Line: 60  Col: 5  
+DELIM_RBRACE               | }                                                       | Line: 61  Col: 1  
+COMMENT                    | # Empty loop header                                     | Line: 63  Col: 1  
+KEYWORD_SPIN               | spin                                                    | Line: 64  Col: 1  
+DELIM_LPAREN               | (                                                       | Line: 64  Col: 6  
+DELIM_RPAREN               | )                                                       | Line: 64  Col: 7  
+DELIM_LBRACE               | {                                                       | Line: 64  Col: 9  
+KEYWORD_EMIT               | emit                                                    | Line: 65  Col: 5  
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 65  Col: 10 
+STRING_LITERAL             | Empty spin                                              | Line: 65  Col: 11 
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 65  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 65  Col: 22 
+DELIM_RBRACE               | }                                                       | Line: 66  Col: 1  
+COMMENT                    | # 7. ROUTINE DECLARATION ERRORS                         | Line: 68  Col: 1  
+COMMENT                    | # Parameter 'a' missing its data type                   | Line: 69  Col: 1  
+KEYWORD_ROUTINE            | routine                                                 | Line: 70  Col: 1  
+IDENTIFIER                 | compute_bonus                                           | Line: 70  Col: 9  
+DELIM_LPAREN               | (                                                       | Line: 70  Col: 22 
+IDENTIFIER                 | a                                                       | Line: 70  Col: 23 
+DELIM_COMMA                | ,                                                       | Line: 70  Col: 24 
+DATA_TYPE_DEC              | dec                                                     | Line: 70  Col: 26 
+IDENTIFIER                 | multiplier                                              | Line: 70  Col: 30 
+DELIM_RPAREN               | )                                                       | Line: 70  Col: 40 
+DELIM_LBRACE               | {                                                       | Line: 70  Col: 42 
+KEYWORD_RETURN             | return                                                  | Line: 71  Col: 5  
+IDENTIFIER                 | multiplier                                              | Line: 72  Col: 12 
+DELIM_RBRACE               | }                                                       | Line: 73  Col: 1  
+COMMENT                    | # 8. LEXICAL ERROR TOKENS HANDLED BY PARSER             | Line: 75  Col: 1  
+                           | (TOKEN_UNKNOWN)                                         |
+STORAGE_HOLD               | hold                                                    | Line: 76  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 76  Col: 6  
+LEXICAL_ERROR              | _counter                                                | Line: 76  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 76  Col: 19 
+INTEGER_LITERAL            | 0                                                       | Line: 76  Col: 21 
+DELIM_SEMICOLON            | ;                                                       | Line: 76  Col: 22 
+STORAGE_HOLD               | hold                                                    | Line: 77  Col: 1  
+DATA_TYPE_DEC              | dec                                                     | Line: 77  Col: 6  
+LEXICAL_ERROR              | box1                                                    | Line: 77  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 77  Col: 15 
+DECIMAL_LITERAL            | 15.5                                                    | Line: 77  Col: 17 
+DELIM_SEMICOLON            | ;                                                       | Line: 77  Col: 21 
+STORAGE_HOLD               | hold                                                    | Line: 78  Col: 1  
+DATA_TYPE_DEC              | dec                                                     | Line: 78  Col: 6  
+IDENTIFIER                 | avg_score                                               | Line: 78  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 78  Col: 20 
+LEXICAL_ERROR              | 45.                                                     | Line: 78  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 78  Col: 25 
+STORAGE_HOLD               | hold                                                    | Line: 79  Col: 1  
+DATA_TYPE_TEXT             | text                                                    | Line: 79  Col: 6  
+IDENTIFIER                 | money                                                   | Line: 79  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 79  Col: 17 
+LEXICAL_ERROR              | 500$                                                    | Line: 79  Col: 19 
+DELIM_SEMICOLON            | ;                                                       | Line: 79  Col: 23 
+STORAGE_HOLD               | hold                                                    | Line: 80  Col: 1  
+DATA_TYPE_NUM              | num                                                     | Line: 80  Col: 6  
+IDENTIFIER                 | error_num                                               | Line: 80  Col: 10 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 80  Col: 20 
+LEXICAL_ERROR              | 123a45                                                  | Line: 80  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 80  Col: 28 
+COMMENT                    | # 4. Unterminated Literals & Boundary Violations        | Line: 82  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 83  Col: 1  
+DATA_TYPE_TEXT             | text                                                    | Line: 83  Col: 6  
+IDENTIFIER                 | open_string                                             | Line: 83  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 83  Col: 23 
+DELIM_DOUBLE_QUOTE         | "                                                       | Line: 83  Col: 25 
+LEXICAL_ERROR              | Unterminated string                                     | Line: 83  Col: 26 
+COMMENT                    | # Empty character                                       | Line: 85  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 86  Col: 1  
+DATA_TYPE_CHAR             | char                                                    | Line: 86  Col: 6  
+IDENTIFIER                 | no_char                                                 | Line: 86  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 86  Col: 19 
+DELIM_SINGLE_QUOTE         | '                                                       | Line: 86  Col: 21 
+LEXICAL_ERROR              | Empty character literal                                 | Line: 86  Col: 22 
+DELIM_SINGLE_QUOTE         | '                                                       | Line: 86  Col: 22 
+DELIM_SEMICOLON            | ;                                                       | Line: 86  Col: 23 
+COMMENT                    | # Multi-character literal inside single quotes          | Line: 88  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 89  Col: 1  
+DATA_TYPE_CHAR             | char                                                    | Line: 89  Col: 6  
+IDENTIFIER                 | multi_char                                              | Line: 89  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 89  Col: 22 
+DELIM_SINGLE_QUOTE         | '                                                       | Line: 89  Col: 24 
+LEXICAL_ERROR              | Multi-character literal                                 | Line: 89  Col: 25 
+DELIM_SINGLE_QUOTE         | '                                                       | Line: 89  Col: 28 
+DELIM_SEMICOLON            | ;                                                       | Line: 89  Col: 29 
+COMMENT                    | # Unterminated character using single quote             | Line: 91  Col: 1  
+STORAGE_HOLD               | hold                                                    | Line: 92  Col: 1  
+DATA_TYPE_CHAR             | char                                                    | Line: 92  Col: 6  
+IDENTIFIER                 | open_char                                               | Line: 92  Col: 11 
+ASSIGNMENT_OPERATOR        | =                                                       | Line: 92  Col: 21 
+DELIM_SINGLE_QUOTE         | '                                                       | Line: 92  Col: 23 
+LEXICAL_ERROR              | Unterminated string                                     | Line: 92  Col: 24 
+END_OF_FILE                | EOF                                                     | Line: 92  Col: 25 
 ====================================================================================================================
